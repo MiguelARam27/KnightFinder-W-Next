@@ -103,6 +103,7 @@ function Signup() {
       setFormLoading(false);
       return setErrorMsg('Error Uploading Image');
     }
+    console.log(profilePicUrl);
 
     await registerUser(user, profilePicUrl, setErrorMsg, setFormLoading);
   };
