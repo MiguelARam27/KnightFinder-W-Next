@@ -67,7 +67,7 @@ function SideMenu({
             <Icon
               name="user"
               size="large"
-              color={router.query.username === username && 'teal'}
+              color={router.query.username === username ? 'teal' : 'black'}
             />
             <List.Content>
               <List.Header content="Account" />
