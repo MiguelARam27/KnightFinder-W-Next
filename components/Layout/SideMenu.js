@@ -21,7 +21,11 @@ function SideMenu({
       >
         <Link href="/">
           <List.Item active={isActive('/')}>
-            <Icon name="home" size="large" color={isActive('/') && 'teal'} />
+            <Icon
+              name="home"
+              size="large"
+              color={isActive('/') ? 'teal' : 'black'}
+            />
             <List.Content>
               <List.Header content="Home" />
             </List.Content>
@@ -34,9 +38,7 @@ function SideMenu({
             <Icon
               name={unreadMessage ? 'hand point right' : 'mail outline'}
               size="large"
-              color={
-                (isActive('/messages') && 'teal') || (unreadMessage && 'orange')
-              }
+              color={isActive('/') ? 'teal' : 'black'}
             />
             <List.Content>
               <List.Header content="Messages" />
@@ -50,10 +52,7 @@ function SideMenu({
             <Icon
               name={unreadNotification ? 'hand point right' : 'bell outline'}
               size="large"
-              color={
-                (isActive('/notifications') && 'teal') ||
-                (unreadNotification && 'orange')
-              }
+              color={isActive('/') ? 'teal' : 'black'}
             />
             <List.Content>
               <List.Header content="Notifications" />

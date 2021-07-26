@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Form, Button, Image, Divider, Message, Icon } from 'semantic-ui-react';
 import uploadPic from '../../utils/uploadPicToCloudinary';
-const CreatePost = ({ user, setPosts }) => {
+import { submitNewPost } from '../../utils/postActions';
+function CreatePost({ user, setPosts }) {
   const [newPost, setNewPost] = useState({ text: '', location: '' });
   const [loading, setLoading] = useState(false);
   const inputRef = useRef();
@@ -9,23 +10,55 @@ const CreatePost = ({ user, setPosts }) => {
   const [error, setError] = useState(null);
   const [highlighted, setHighlighted] = useState(false);
 
-  const [media, setMedia] = useState(false);
+  const [media, setMedia] = useState(null);
   const [mediaPreview, setMediaPreview] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target.value;
+    const { name, value, files } = e.target;
 
     if (name === 'media') {
       setMedia(files[0]);
-      setMedia(URL.createObjectURL(files[0]));
+      setMediaPreview(URL.createObjectURL(files[0]));
     }
 
-    setNewPost({ ...newPost, [name]: value });
+    setNewPost((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    console.log(e);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    let picUrl;
+    if (media !== null) {
+      picUrl = await uploadPic(media);
+      if (!picUrl) {
+        setLoading(false);
+        return setError('Error Uploading Image');
+      }
+    }
+
+    await submitNewPost(
+      newPost.text,
+      newPost.location,
+      picUrl,
+      setPosts,
+      setNewPost,
+      setError
+    );
+
+    setMedia(null);
+    setMediaPreview(null);
+    setLoading(false);
   };
+
+  const addStyles = () => ({
+    textAlign: 'center',
+    height: '150px',
+    border: 'dotted',
+    paddingTop: media === null ? '60px' : '0px',
+    padding: '5rem .5rem',
+    cursor: 'pointer',
+    borderColor: highlighted ? 'green' : 'black',
+  });
 
   return (
     <>
@@ -38,9 +71,9 @@ const CreatePost = ({ user, setPosts }) => {
         />
 
         <Form.Group>
-          <Image src={user.profilePicurl} circular avatar />
+          <Image src={user.profilePicUrl} circular avatar />
           <Form.TextArea
-            placeHolder="Share your thoughts"
+            placeholder="Share your thoughts"
             name="text"
             value={newPost.text}
             onChange={handleChange}
@@ -55,8 +88,8 @@ const CreatePost = ({ user, setPosts }) => {
             name="location"
             onChange={handleChange}
             label="Add your Location"
-            icon="map maerker alternate"
-            placeHolder="Add your location"
+            icon="map marker alternate"
+            placeholder="Add your location"
           />
 
           <input
@@ -67,12 +100,55 @@ const CreatePost = ({ user, setPosts }) => {
             type="file"
             accept="image/*"
           />
-
-          <div style={{ textAlign: 'center', height: '150px' }}></div>
         </Form.Group>
+        <div
+          style={addStyles()}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setHighlighted(true);
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault();
+            setHighlighted(false);
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            setHighlighted(true);
+
+            const droppedFile = Array.from(e.dataTransfer.files);
+
+            setMedia(droppedFile[0]);
+            setMediaPreview(URL.createObjectURL(droppedFile[0]));
+          }}
+        >
+          {media === null ? (
+            <>
+              <Icon name="plus" onClick={() => inputRef.current.click()} />
+            </>
+          ) : (
+            <>
+              <Image
+                style={{ height: '150px', width: '150px' }}
+                src={mediaPreview}
+                alt={'PostImage'}
+                centered
+                size="medium"
+                onClick={() => inputRef.current.click()}
+              />
+            </>
+          )}
+        </div>
+        <Divider hidden />
+
+        <Button
+          circular
+          disabled={newPost.text === '' || loading}
+          content={<strong>Post</strong>}
+          style={{ backgroundColor: '#1DA1F2', color: 'white' }}
+        />
       </Form>
     </>
   );
-};
+}
 
 export default CreatePost;

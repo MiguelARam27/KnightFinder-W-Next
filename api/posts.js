@@ -22,9 +22,9 @@ router.post('/', authMiddleware, async (req, res) => {
 
     const post = await new PostModel(newPost).save();
 
-    // const postCreated = await PostModel.findById(post._id).populate('user');
+    const postCreated = await PostModel.findById(post._id).populate('user');
 
-    return res.json(post._id);
+    return res.json(postCreated);
   } catch (error) {
     console.error(error);
     return res.status(500).send(`Server error`);

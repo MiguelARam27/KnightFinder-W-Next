@@ -15,12 +15,11 @@ import CommentInputField from './CommentInputField';
 
 import Link from 'next/link';
 import calculateTime from '../../utils/calculatedTime';
-// import { deletePost, likePost } from '../../utils/postActions';
+import { deletePost, likePost } from '../../utils/postActions';
 // import LikesList from './LikesList';
 // import ImageModal from './ImageModal';
 // import NoImageModal from './NoImageModal';
 const CardPost = ({ post, user, setPosts, setShowToastr }) => {
-  console.log(post);
   const [likes, setLikes] = useState(post.likes);
 
   const isLiked =
@@ -38,11 +37,12 @@ const CardPost = ({ post, user, setPosts, setShowToastr }) => {
           {post?.picUrl && (
             <Image
               src={post.picUrl}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', ojectFit: 'contain' }}
               floated="left"
               wrapped
               ui={false}
               alt="PostImage"
+              // onClick={() => setShowModal(true)}
             />
           )}
 
@@ -69,7 +69,14 @@ const CardPost = ({ post, user, setPosts, setShowToastr }) => {
                 >
                   <Header as="h4" content="Are you sure" />
                   <p>This action is irreversible</p>
-                  <Button color="red" icon="trash" content="delete" />
+                  <Button
+                    color="red"
+                    icon="trash"
+                    content="delete"
+                    onClick={() =>
+                      deletePost(post._id, setPosts, setShowToastr)
+                    }
+                  />
                 </Popup>
               </>
             )}
