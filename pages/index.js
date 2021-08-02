@@ -6,6 +6,8 @@ import CardPost from '../components/post/CardPost';
 import { NoPosts } from '../components/Layout/NoData';
 import { parseCookies } from 'nookies';
 import { Segment } from 'semantic-ui-react';
+
+import { PostDeleteToastr } from '../components/Layout/Toastr';
 function Index({ user, postsData, errorLoading }) {
   const [posts, setPosts] = useState(postsData);
   const [showToastr, setShowToastr] = useState(false);
@@ -13,12 +15,15 @@ function Index({ user, postsData, errorLoading }) {
     document.title = `Welcome, ${user.name.split(' ')[0]}`;
   }, []);
 
-  console.log(posts);
+  useEffect(() => {
+    showToastr && setTimeout(() => setShowToastr(false), 3000);
+  }, [showToastr]);
   if (posts.length === 0 || errorLoading) {
     return <NoPosts />;
   }
   return (
     <>
+      {showToastr && <PostDeleteToastr />}
       <Segment>
         <CreatePost user={user} setPosts={setPosts} />
 
