@@ -24,7 +24,7 @@ const CardPost = ({ post, user, setPosts, setShowToastr }) => {
 
   const isLiked =
     likes.length > 0 &&
-    likes.filter((like) => likes.user === user._id).length > 0;
+    likes.filter((like) => like.user === user._id).length > 0;
 
   const [comments, setComments] = useState(post.comments);
 
@@ -104,6 +104,9 @@ const CardPost = ({ post, user, setPosts, setShowToastr }) => {
               name={isLiked ? 'heart' : 'heart outline'}
               color="red"
               style={{ cursor: 'pointer' }}
+              onClick={() =>
+                likePost(post._id, user._id, setLikes, isLiked ? false : true)
+              }
             />
 
             {likes.length > 0 && (
