@@ -35,7 +35,6 @@ router.get('/:username', authMiddleware, async (req, res) => {
 });
 
 //Get user post
-
 router.get('/posts/:username', authMiddleware, async (req, res) => {
   const { username } = req.params;
   try {
@@ -52,6 +51,75 @@ router.get('/posts/:username', authMiddleware, async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).send('Server error');
+  }
+});
+
+//Get followers
+router.get('/followers/:userId', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await FollowerModel.findOne({ user: userId }).populate(
+      'followers.user'
+    );
+
+    console.log(user);
+    return res.json(user.followers);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server Error');
+  }
+});
+
+// GET FOLLOWING OF USER
+router.get('/following/:userId', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await FollowerModel.findOne({ user: userId }).populate(
+      'following.user'
+    );
+
+    return res.json(user.following);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server Error');
+  }
+});
+
+// FOLLOW A USER
+router.post('/follow/:userToFollowId', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req;
+    const { userToFollowId } = req.params;
+
+    const user = await FollowerModel.findOne({ user: userId });
+    const userToFollow = await FollowerModel.findOne({ user: userToFollowId });
+
+    if (!user || !userToFollow) {
+      return res.status(404).send('User not found');
+    }
+
+    const isFollowing =
+      user.following.length > 0 &&
+      user.following.filter(
+        (following) => following.user.toString() === userToFollowId
+      ).length > 0;
+
+    if (isFollowing) {
+      return res.status(401).send('User Already Followed');
+    }
+
+    await user.following.unshift({ user: userToFollowId });
+    await user.save();
+
+    await userToFollow.followers.unshift({ user: userId });
+    await userToFollow.save();
+
+    return res.status(200).send('Updated');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server Error');
   }
 });
 module.exports = router;
