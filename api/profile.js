@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const authMiddleware = require('../middleware/authMiddleware');
 const UserModel = require('../models/UserModel');
 const FollowerModel = require('../models/FollowerModel');
@@ -168,6 +169,79 @@ router.put('/unfollow/:userToUnfollowId', authMiddleware, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('server error');
+  }
+});
+// UPDATE PROFILE
+router.post('/update', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req;
+
+    const {
+      bio,
+      facebook,
+      youtube,
+      twitter,
+      instagram,
+      profilePicUrl,
+    } = req.body;
+
+    let profileFields = {};
+    profileFields.user = userId;
+
+    profileFields.bio = bio;
+
+    profileFields.social = {};
+
+    if (facebook) profileFields.social.facebook = facebook;
+
+    if (youtube) profileFields.social.youtube = youtube;
+
+    if (instagram) profileFields.social.instagram = instagram;
+
+    if (twitter) profileFields.social.twitter = twitter;
+
+    await ProfileModel.findOneAndUpdate(
+      { user: userId },
+      { $set: profileFields },
+      { new: true }
+    );
+
+    if (profilePicUrl) {
+      const user = await UserModel.findById(userId);
+      user.profilePicUrl = profilePicUrl;
+      await user.save();
+    }
+
+    return res.status(200).send('Success');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server Error');
+  }
+});
+
+//Update password
+router.post('/settings/password', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req;
+    const { currentPassword, newPassword } = req.body;
+    console.log(currentPassword, newPassword);
+
+    if (newPassword?.length < 6) {
+      return res.status(401).send('Password must be at least 6 characters');
+    }
+    const user = await UserModel.findById(userId).select('+password');
+    console.log(user);
+    const isPassword = await bcrypt.compare(currentPassword, user.password);
+    if (!isPassword) {
+      return res.status(401).send('Invalid Password');
+    }
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    return res.status(200).send('Success');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server Error');
   }
 });
 module.exports = router;
