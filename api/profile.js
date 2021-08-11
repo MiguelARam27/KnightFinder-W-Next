@@ -24,7 +24,7 @@ router.get('/:username', authMiddleware, async (req, res) => {
         profileFollowStats.followers.length > 0
           ? profileFollowStats.followers.length
           : 0,
-      followingLenght:
+      followingLength:
         profileFollowStats.following.length > 0
           ? profileFollowStats.following.length
           : 0,
