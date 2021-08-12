@@ -46,7 +46,7 @@ router.get('/posts/:username', authMiddleware, async (req, res) => {
     const posts = await PostModel.find({ user: user._id })
       .sort({ createdAt: -1 })
       .populate('user')
-      .populate('comments');
+      .populate('comments.user');
 
     return res.json(posts);
   } catch (error) {
