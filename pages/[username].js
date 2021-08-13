@@ -12,6 +12,8 @@ import CardPost from '../components/post/CardPost';
 import { PlaceHolderPosts } from '../components/Layout/PlaceHolderGroup';
 import { PostDeleteToastr } from '../components/Layout/Toastr';
 import Followers from '../components/Profile/Followers';
+import Following from '../components/Profile/Following';
+
 function ProfilePage({
   profile,
   followersLength,
@@ -110,6 +112,15 @@ function ProfilePage({
             )}
             {activeItem === 'followers' && (
               <Followers
+                user={user}
+                loggedUserFollowStats={loggedUserFollowStats}
+                setUserFollowStats={setUserFollowStats}
+                profileUserId={profile.user._id}
+              />
+            )}
+
+            {activeItem === 'following' && (
+              <Following
                 user={user}
                 loggedUserFollowStats={loggedUserFollowStats}
                 setUserFollowStats={setUserFollowStats}
