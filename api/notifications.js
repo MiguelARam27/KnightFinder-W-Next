@@ -12,7 +12,6 @@ router.get('/', authMiddleware, async (req, res) => {
       .populate('notifications.user')
       .populate('notifications.post');
 
-    console.log('here', user);
     return res.json(user.notifications);
   } catch (error) {
     console.error(error);

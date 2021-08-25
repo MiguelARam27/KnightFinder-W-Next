@@ -18,30 +18,19 @@ const setNotificationToUnread = async (userId) => {
 
 const newLikeNotification = async (userId, postId, userToNotifyId) => {
   try {
-    const userToNotifyExists = await NotificationModel.findOne({
+    const userToNotify = await NotificationModel.findOne({
       user: userToNotifyId,
     });
-    if (!userToNotifyExists) {
-      const userToNotify = new NotificationModel();
 
-      let newNotification = {
-        type: 'newLike',
-        user: userId,
-        post: postId,
-        date: Date.now(),
-      };
-      await userToNotify.notifications.unshift(newNotification);
-      await userToNotify.save();
-    } else {
-      let newNotification = {
-        type: 'newLike',
-        user: userId,
-        post: postId,
-        date: Date.now(),
-      };
-      await userToNotifyExists.notifications.unshift(newNotification);
-      await userToNotifyExists.save();
-    }
+    const newNotification = {
+      type: 'newLike',
+      user: userId,
+      post: postId,
+      date: Date.now(),
+    };
+
+    await userToNotify.notifications.unshift(newNotification);
+    await userToNotify.save();
 
     await setNotificationToUnread(userToNotifyId);
     return;
@@ -49,7 +38,6 @@ const newLikeNotification = async (userId, postId, userToNotifyId) => {
     console.error(error);
   }
 };
-
 const removeLikeNotification = async (userId, postId, userToNotifyId) => {
   try {
     // Here we are simply using $pull operator to remove the notification from notifications array.
