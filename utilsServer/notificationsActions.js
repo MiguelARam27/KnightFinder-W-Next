@@ -131,7 +131,7 @@ const newFollowerNotification = async (userId, userToNotifyId) => {
       date: Date.now(),
     };
 
-    await user.unreadNotification.unshift(newNotification);
+    await user.notifications.unshift(newNotification);
 
     await user.save();
 
