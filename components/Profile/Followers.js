@@ -27,7 +27,6 @@ function Followers({
             headers: { Authorization: cookie.get('token') },
           }
         );
-        console.log(res);
 
         setFollowers(res.data);
       } catch (error) {

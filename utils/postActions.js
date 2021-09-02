@@ -19,7 +19,6 @@ export const submitNewPost = async (
   try {
     const res = await Axios.post('/', { text, location, picUrl });
 
-    console.log(setPosts);
     setPosts((prev) => [res.data, ...prev]);
     setNewPost({ text: '', location: '' });
   } catch (error) {
