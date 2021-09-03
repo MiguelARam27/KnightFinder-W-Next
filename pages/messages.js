@@ -14,10 +14,32 @@ import { NoMessages } from '../components/Layout/NoData';
 // import getUserInfo from '../utils/getUserInfo';
 // import newMsgSound from '../utils/newMsgSound';
 // import cookie from 'js-cookie';
-function Messages({ chatsData }) {
+function Messages({ chatsData, user }) {
   const [chats, setChats] = useState(chatsData);
-
+  const [connectedUsers, setConnectedUsers] = useState([]);
   const router = useRouter();
+
+  const socket = useRef();
+
+  useEffect(() => {
+    if (!socket.current) {
+      socket.current = io(baseUrl);
+    }
+    if (socket.current) {
+      socket.current.emit('join', { userId: user._id });
+
+      socket.current.on('connectedUsers', ({ users }) => {
+        console.log('here', users);
+        users.length > 0 && setConnectedUsers(users);
+      });
+
+      if (chats.length > 0 && !router.query.message) {
+        router.push(`/messages?message=${chats[0].messagesWith}`, undefined, {
+          shallow: true,
+        });
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -48,7 +70,12 @@ function Messages({ chatsData }) {
                   >
                     {chats.map((chat, index) => {
                       return (
-                        <Chat key={index} chat={chat} setChats={setChats} />
+                        <Chat
+                          connectedUsers={connectedUsers}
+                          key={index}
+                          chat={chat}
+                          setChats={setChats}
+                        />
                       );
                     })}
                   </Segment>

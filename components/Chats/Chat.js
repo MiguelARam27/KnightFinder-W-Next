@@ -6,11 +6,13 @@ import calculateTime from '../../utils/calculatedTime';
 function Chat({ chat, connectedUsers, deleteChat }) {
   const router = useRouter();
 
-  // const isOnline =
-  //   connectedUsers.length > 0 &&
-  //   connectedUsers.filter((user) => user.userId === chat.messagesWith).length >
-  //     0;
+  console.log(connectedUsers);
+  const isOnline =
+    connectedUsers.length > 0 &&
+    connectedUsers.filter((user) => user.userId === chat.messagesWith).length >
+      0;
 
+  console.log(isOnline);
   return (
     <>
       <List selection>
@@ -27,7 +29,7 @@ function Chat({ chat, connectedUsers, deleteChat }) {
             <Comment.Content>
               <Comment.Author as="a">
                 {chat.name}{' '}
-                {/* {isOnline && <Icon name="circle" size="small" color="green" />} */}
+                {isOnline && <Icon name="circle" size="small" color="green" />}
               </Comment.Author>
 
               <Comment.Metadata>
