@@ -21,15 +21,16 @@ function Messages({ chatsData, user }) {
 
   const socket = useRef();
 
+  //CONNECTION useEffect
   useEffect(() => {
     if (!socket.current) {
       socket.current = io(baseUrl);
     }
+
     if (socket.current) {
       socket.current.emit('join', { userId: user._id });
 
       socket.current.on('connectedUsers', ({ users }) => {
-        console.log('here', users);
         users.length > 0 && setConnectedUsers(users);
       });
 
@@ -39,6 +40,13 @@ function Messages({ chatsData, user }) {
         });
       }
     }
+
+    return () => {
+      if (socket.current) {
+        socket.current.emit('disconnect');
+        socket.current.off();
+      }
+    };
   }, []);
 
   return (

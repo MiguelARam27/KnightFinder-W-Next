@@ -6,13 +6,11 @@ import calculateTime from '../../utils/calculatedTime';
 function Chat({ chat, connectedUsers, deleteChat }) {
   const router = useRouter();
 
-  console.log(connectedUsers);
   const isOnline =
     connectedUsers.length > 0 &&
     connectedUsers.filter((user) => user.userId === chat.messagesWith).length >
       0;
 
-  console.log(isOnline);
   return (
     <>
       <List selection>

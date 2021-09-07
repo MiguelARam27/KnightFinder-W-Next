@@ -22,6 +22,10 @@ io.on('connection', (socket) => {
       });
     }, 10000);
   });
+
+  socket.on('disconnect', () => {
+    removeUser(socket.id);
+  });
 });
 nextApp.prepare().then(() => {
   app.use('/api/signup', require('./api/signup'));
