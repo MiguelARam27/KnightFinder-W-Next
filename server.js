@@ -7,6 +7,7 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 const io = require('socket.io')(server);
 const { addUser, removeUser } = require('./utilsServer/roomActions');
+const { loadMessages } = require('./utilsServer/messageActions');
 require('dotenv').config({ path: './.env' });
 const connectDb = require('./utilsServer/connectDb');
 connectDb();
@@ -21,6 +22,14 @@ io.on('connection', (socket) => {
         users: users.filter((user) => user.userId !== userId),
       });
     }, 10000);
+  });
+
+  socket.on('loadMessages', async ({ userId, messagesWith }) => {
+    const { chat, error } = await loadMessages(userId, messagesWith);
+
+    !error
+      ? socket.emit('messagesLoaded', { chat })
+      : socket.emit('noChatFound');
   });
 
   socket.on('disconnect', () => {

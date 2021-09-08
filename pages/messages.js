@@ -19,8 +19,14 @@ function Messages({ chatsData, user }) {
   const [connectedUsers, setConnectedUsers] = useState([]);
   const router = useRouter();
 
-  const socket = useRef();
+  const [messages, setMessages] = useState([]);
+  const [bannerData, setBannerData] = useState({ name: '', profilePicUrl: '' });
 
+  console.log(messages);
+  //ref for persisting the state of query string in url throughout re-renders
+  const openChatId = useRef('');
+
+  const socket = useRef();
   //CONNECTION useEffect
   useEffect(() => {
     if (!socket.current) {
@@ -48,6 +54,37 @@ function Messages({ chatsData, user }) {
       }
     };
   }, []);
+
+  useEffect(() => {
+    const loadMessages = () => {
+      socket.current.emit('loadMessages', {
+        userId: user._id,
+        messagesWith: router.query.message,
+      });
+
+      socket.current.on('messagesLoaded', async ({ chat }) => {
+        setMessages(chat.messages);
+        setBannerData({
+          name: chat.messagesWith.name,
+          profilePicUrl: chat.messagesWith.profilePicUrl,
+        });
+
+        // openChatId.current = chat.messagesWith._id;
+        // divRef.current && scrollDivToBottom(divRef);
+      });
+
+      socket.current.on('noChatFound', async () => {
+        const { name, profilePicUrl } = await getUserInfo(router.query.message);
+
+        setBannerData({ name, profilePicUrl });
+        setMessages([]);
+
+        openChatId.current = router.query.message;
+      });
+    };
+
+    if (socket.current && router.query.message) loadMessages();
+  }, [router.query.message]);
 
   return (
     <>
