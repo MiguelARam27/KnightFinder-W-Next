@@ -8,9 +8,9 @@ import { Segment, Header, Divider, Comment, Grid } from 'semantic-ui-react';
 import Chat from '../components/Chats/Chat';
 import ChatListSearch from '../components/Chats/ChatListSearch';
 import { NoMessages } from '../components/Layout/NoData';
-// import Banner from '../components/Messages/Banner';
-// import MessageInputField from '../components/Messages/MessageInputField';
-// import Message from '../components/Messages/Message';
+import Banner from '../components/Messages/Banner';
+import MessageInputField from '../components/Messages/MessageInputField';
+import Message from '../components/Messages/Message';
 // import getUserInfo from '../utils/getUserInfo';
 // import newMsgSound from '../utils/newMsgSound';
 // import cookie from 'js-cookie';
@@ -22,7 +22,6 @@ function Messages({ chatsData, user }) {
   const [messages, setMessages] = useState([]);
   const [bannerData, setBannerData] = useState({ name: '', profilePicUrl: '' });
 
-  console.log(messages);
   //ref for persisting the state of query string in url throughout re-renders
   const openChatId = useRef('');
 
@@ -69,7 +68,7 @@ function Messages({ chatsData, user }) {
           profilePicUrl: chat.messagesWith.profilePicUrl,
         });
 
-        // openChatId.current = chat.messagesWith._id;
+        openChatId.current = chat.messagesWith._id;
         // divRef.current && scrollDivToBottom(divRef);
       });
 
@@ -103,14 +102,13 @@ function Messages({ chatsData, user }) {
         {chats && chats?.length > 0 ? (
           <>
             <Grid stackable>
-              <Comment.Group size="big">
-                <Grid.Column width={4}>
+              <Grid.Column width={4}>
+                <Comment.Group size="big">
                   <Segment
                     raised
                     style={{
                       overflow: 'auto',
                       maxHeight: '32rem',
-                      width: '20rem',
                     }}
                   >
                     {chats.map((chat, index) => {
@@ -124,8 +122,52 @@ function Messages({ chatsData, user }) {
                       );
                     })}
                   </Segment>
-                </Grid.Column>
-              </Comment.Group>
+                </Comment.Group>
+              </Grid.Column>
+              <Grid.Column width={12}>
+                {router.query.message && (
+                  <>
+                    <div
+                      style={{
+                        overflow: 'hidden',
+                        overflowX: 'hidden',
+                        maxHeight: '15rem',
+                        height: '50rem',
+                        backgroundColor: 'whitesmoke',
+                      }}
+                    >
+                      {messages.length > 0 && (
+                        <>
+                          <div
+                            style={{
+                              position: 'sticky',
+                              top: '0',
+                              backgroundColor: 'red',
+                            }}
+                          >
+                            <Banner bannerData={bannerData} />
+                          </div>
+                          {messages.map((message, index) => (
+                            <Message
+                              keys={index}
+                              bannerProfilePic={bannerData.profilePicUrl}
+                              message={message}
+                              user={user}
+                              setMessages={setMessages}
+                              messagesWith={openChatId.current}
+                            />
+                          ))}
+                        </>
+                      )}
+                    </div>
+                    <MessageInputField
+                      socket={socket.current}
+                      user={user}
+                      messagesWith={openChatId.current}
+                    />
+                  </>
+                )}
+              </Grid.Column>
             </Grid>
           </>
         ) : (
