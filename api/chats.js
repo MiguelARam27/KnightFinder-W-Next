@@ -31,4 +31,21 @@ router.get('/', authMiddleWare, async (req, res) => {
     return res.status(500).send('Server error');
   }
 });
+
+// GET USER INFO
+router.get('/user/:userToFindId', authMiddleWare, async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.userToFindId);
+
+    if (!user) {
+      return res.status(404).send('No User found');
+    }
+
+    return res.json({ name: user.name, profilePicUrl: user.profilePicUrl });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

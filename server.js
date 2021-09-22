@@ -6,8 +6,16 @@ const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 const io = require('socket.io')(server);
-const { addUser, removeUser } = require('./utilsServer/roomActions');
-const { loadMessages, sendMessage } = require('./utilsServer/messageActions');
+const {
+  addUser,
+  removeUser,
+  findConnectedUser,
+} = require('./utilsServer/roomActions');
+const {
+  loadMessages,
+  sendMessage,
+  setMessageToUnread,
+} = require('./utilsServer/messageActions');
 require('dotenv').config({ path: './.env' });
 const connectDb = require('./utilsServer/connectDb');
 connectDb();
@@ -34,6 +42,15 @@ io.on('connection', (socket) => {
 
   socket.on('sendNewMessage', async ({ userId, msgSendToUserId, msg }) => {
     const { newMsg, error } = await sendMessage(userId, msgSendToUserId, msg);
+
+    const receiverSocket = findConnectedUser(msgSendToUserId);
+
+    if (receiverSocket) {
+      // WHEN YOU WANT TO SEND MESSAGE TO A PARTICULAR SOCKET
+      io.to(receiverSocket.socketId).emit('newMsgReceived', { newMsg });
+    } else {
+      await setMessageToUnread(msgSendToUserId);
+    }
 
     if (!error) {
       socket.emit('messageSent', { newMsg });
