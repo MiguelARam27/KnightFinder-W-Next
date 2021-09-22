@@ -20,6 +20,7 @@ function Messages({ chatsData, user }) {
   const router = useRouter();
 
   const [messages, setMessages] = useState([]);
+  console.log(messages);
   const [bannerData, setBannerData] = useState({ name: '', profilePicUrl: '' });
 
   //ref for persisting the state of query string in url throughout re-renders
@@ -54,6 +55,8 @@ function Messages({ chatsData, user }) {
     };
   }, []);
 
+  //load messages use effect
+
   useEffect(() => {
     const loadMessages = () => {
       socket.current.emit('loadMessages', {
@@ -85,6 +88,26 @@ function Messages({ chatsData, user }) {
     if (socket.current && router.query.message) loadMessages();
   }, [router.query.message]);
 
+  const sendMessage = (message) => {
+    if (socket.current) {
+      socket.current.emit('sendNewMessage', {
+        userId: user._id,
+        msgSendToUserId: openChatId.current,
+        msg: message,
+      });
+    }
+  };
+
+  //confirming message and recieveing messages
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on('messageSent', ({ newMsg }) => {
+        if (newMsg.receiver === openChatId.current) {
+          setMessages((prev) => [...prev, newMsg]);
+        }
+      });
+    }
+  }, []);
   return (
     <>
       <Segment padded basic size="large" style={{ marginTop: '5px' }}>
@@ -107,8 +130,8 @@ function Messages({ chatsData, user }) {
                   <Segment
                     raised
                     style={{
-                      overflow: 'auto',
-                      maxHeight: '32rem',
+                      overflow: 'scroll',
+                      maxHeight: '15rem',
                     }}
                   >
                     {chats.map((chat, index) => {
@@ -129,9 +152,8 @@ function Messages({ chatsData, user }) {
                   <>
                     <div
                       style={{
-                        overflow: 'hidden',
+                        overflow: 'auto',
                         overflowX: 'hidden',
-                        maxHeight: '15rem',
                         height: '50rem',
                         backgroundColor: 'whitesmoke',
                       }}
@@ -160,11 +182,7 @@ function Messages({ chatsData, user }) {
                         </>
                       )}
                     </div>
-                    <MessageInputField
-                      socket={socket.current}
-                      user={user}
-                      messagesWith={openChatId.current}
-                    />
+                    <MessageInputField sendMessage={sendMessage} />
                   </>
                 )}
               </Grid.Column>

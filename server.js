@@ -7,7 +7,7 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 const io = require('socket.io')(server);
 const { addUser, removeUser } = require('./utilsServer/roomActions');
-const { loadMessages } = require('./utilsServer/messageActions');
+const { loadMessages, sendMessage } = require('./utilsServer/messageActions');
 require('dotenv').config({ path: './.env' });
 const connectDb = require('./utilsServer/connectDb');
 connectDb();
@@ -30,6 +30,14 @@ io.on('connection', (socket) => {
     !error
       ? socket.emit('messagesLoaded', { chat })
       : socket.emit('noChatFound');
+  });
+
+  socket.on('sendNewMessage', async ({ userId, msgSendToUserId, msg }) => {
+    const { newMsg, error } = await sendMessage(userId, msgSendToUserId, msg);
+
+    if (!error) {
+      socket.emit('messageSent', { newMsg });
+    }
   });
 
   socket.on('disconnect', () => {
