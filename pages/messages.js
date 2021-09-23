@@ -14,6 +14,11 @@ import Message from '../components/Messages/Message';
 import getUserInfo from '../utils/getUserInfo';
 import newMsgSound from '../utils/newMsgSound';
 // import cookie from 'js-cookie';
+
+const scrollDivToBottom = (divRef) => {
+  divRef.current !== null &&
+    divRef.current.scrollIntoView({ behavior: 'smooth' });
+};
 function Messages({ chatsData, user }) {
   const [chats, setChats] = useState(chatsData);
   const [connectedUsers, setConnectedUsers] = useState([]);
@@ -22,6 +27,9 @@ function Messages({ chatsData, user }) {
   const [messages, setMessages] = useState([]);
 
   const [bannerData, setBannerData] = useState({ name: '', profilePicUrl: '' });
+
+  //scroll ref
+  const MessageDivRef = useRef();
 
   //ref for persisting the state of query string in url throughout re-renders
   const openChatId = useRef('');
@@ -72,7 +80,7 @@ function Messages({ chatsData, user }) {
         });
 
         openChatId.current = chat.messagesWith._id;
-        // divRef.current && scrollDivToBottom(divRef);
+        MessageDivRef.current && scrollDivToBottom(MessageDivRef);
       });
 
       socket.current.on('noChatFound', async () => {
@@ -168,6 +176,10 @@ function Messages({ chatsData, user }) {
       });
     }
   }, []);
+
+  useEffect(() => {
+    messages.length > 0 && scrollDivToBottom(MessageDivRef);
+  }, [messages]);
   return (
     <>
       <Segment padded basic size="large" style={{ marginTop: '5px' }}>
@@ -236,6 +248,7 @@ function Messages({ chatsData, user }) {
                               user={user}
                               setMessages={setMessages}
                               messagesWith={openChatId.current}
+                              MessageDivRef={MessageDivRef}
                             />
                           ))}
                         </>
