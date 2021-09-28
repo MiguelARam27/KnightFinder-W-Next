@@ -177,9 +177,27 @@ function Messages({ chatsData, user }) {
     }
   }, []);
 
+  //use Effect to scroll to bottom
   useEffect(() => {
     messages.length > 0 && scrollDivToBottom(MessageDivRef);
   }, [messages]);
+
+  const deleteMessage = (messageId) => {
+    if (socket.current) {
+      socket.current.emit('deleteMessage', {
+        userId: user._id,
+        messagesWith: openChatId.current,
+        messageId,
+      });
+
+      socket.current.on('messageDeleted', () => {
+        setMessages((prev) =>
+          prev.filter((message) => message._id !== messageId)
+        );
+      });
+    }
+  };
+
   return (
     <>
       <Segment padded basic size="large" style={{ marginTop: '5px' }}>
@@ -249,6 +267,7 @@ function Messages({ chatsData, user }) {
                               setMessages={setMessages}
                               messagesWith={openChatId.current}
                               MessageDivRef={MessageDivRef}
+                              deleteMessage={deleteMessage}
                             />
                           ))}
                         </>

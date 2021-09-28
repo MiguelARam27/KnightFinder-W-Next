@@ -15,6 +15,7 @@ const {
   loadMessages,
   sendMessage,
   setMessageToUnread,
+  deleteMessage,
 } = require('./utilsServer/messageActions');
 require('dotenv').config({ path: './.env' });
 const connectDb = require('./utilsServer/connectDb');
@@ -54,6 +55,13 @@ io.on('connection', (socket) => {
 
     if (!error) {
       socket.emit('messageSent', { newMsg });
+    }
+  });
+  socket.on('deleteMessage', async ({ userId, messagesWith, messageId }) => {
+    const { success } = await deleteMessage(userId, messagesWith, messageId);
+
+    if (success) {
+      socket.emit('messageDeleted');
     }
   });
 

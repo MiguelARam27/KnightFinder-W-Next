@@ -4,8 +4,7 @@ import calculateTime from '../../utils/calculatedTime';
 function Message({
   message,
   user,
-  setMessages,
-  messagesWith,
+  deleteMessage,
   bannerProfilePic,
   MessageDivRef,
 }) {
@@ -33,7 +32,7 @@ function Message({
                 name="trash"
                 color="red"
                 style={{ cursor: 'pointer' }}
-                onClick={() => deleteMsg(message._id)}
+                onClick={() => deleteMessage(message._id)}
               />
             }
             content="This will only delete the message from your inbox!"

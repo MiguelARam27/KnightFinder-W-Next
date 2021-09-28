@@ -85,5 +85,42 @@ const setMessageToUnread = async (userId) => {
     console.error(error);
   }
 };
+const deleteMessage = async (userId, messagesWith, messagesId) => {
+  try {
+    const user = await ChatModel.findOne({ user: userId });
 
-module.exports = { loadMessages, sendMessage, setMessageToUnread };
+    const chat = user.chats.find(
+      (chat) => chat.messagesWith.toString() === messagesWith
+    );
+
+    if (!chat) {
+      return;
+    }
+    const messagetoDelete = chat.messages.find(
+      (message) => message._id.toString() === messagesId
+    );
+
+    if (!messagetoDelete) {
+      return;
+    }
+    if (messagetoDelete.sender.toString() !== userId) {
+      return;
+    }
+    const indexOf = chat.messages
+      .map((message) => message._id.toString())
+      .indexOf(messagetoDelete._id.toString());
+
+    await chat.messages.splice(indexOf, 1);
+    await user.save();
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+  }
+};
+module.exports = {
+  loadMessages,
+  sendMessage,
+  setMessageToUnread,
+  deleteMessage,
+};
