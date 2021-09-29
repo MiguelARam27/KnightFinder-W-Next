@@ -13,6 +13,7 @@ import MessageInputField from '../components/Messages/MessageInputField';
 import Message from '../components/Messages/Message';
 import getUserInfo from '../utils/getUserInfo';
 import newMsgSound from '../utils/newMsgSound';
+import cookie from 'js-cookie';
 // import cookie from 'js-cookie';
 
 const scrollDivToBottom = (divRef) => {
@@ -198,6 +199,22 @@ function Messages({ chatsData, user }) {
     }
   };
 
+  const deleteChat = async (messagesWith) => {
+    try {
+      await axios.delete(`${baseUrl}/api/chats/${messagesWith}`, {
+        headers: { Authorization: cookie.get('token') },
+      });
+
+      setChats((prev) =>
+        prev.filter((chat) => chat.messagesWith !== messagesWith)
+      );
+      router.push('/messages', undefined, { shallow: true });
+    } catch (error) {
+      console.log(error);
+      alert('Error deleting chat');
+    }
+  };
+
   return (
     <>
       <Segment padded basic size="large" style={{ marginTop: '5px' }}>
@@ -231,6 +248,7 @@ function Messages({ chatsData, user }) {
                           key={index}
                           chat={chat}
                           setChats={setChats}
+                          deleteChat={deleteChat}
                         />
                       );
                     })}
