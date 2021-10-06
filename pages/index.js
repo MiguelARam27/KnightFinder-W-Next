@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import io from 'socket.io-client';
 import axios from 'axios';
 import baseUrl from '../utils/baseUrl';
 import CreatePost from '../components/post/CreatePost';
@@ -13,14 +14,46 @@ import {
   EndMessage,
 } from '../components/Layout/PlaceHolderGroup';
 import cookie from 'js-cookie';
+import getUserInfo from '../utils/getUserInfo';
+import MessageNotificationModal from '../components/Home/MessageNotificationModal';
 function Index({ user, postsData, errorLoading }) {
   const [posts, setPosts] = useState(postsData || []);
   const [showToastr, setShowToastr] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
   const [pageNumber, setPageNumber] = useState(2);
+
+  const socket = useRef();
+  const [newMessageReceived, setnewMessageReceived] = useState(null);
+  const [newMessageModal, showNewMessageModal] = useState(false);
   useEffect(() => {
     document.title = `Welcome, ${user.name.split(' ')[0]}`;
+    if (!socket.current) {
+      socket.current = io(baseUrl);
+    }
+    if (socket.current) {
+      socket.current.emit('join', { userId: user._id });
+
+      socket.current.on('newMsgReceived', async ({ newMsg }) => {
+        const { name, profilePicUrl } = await getUserInfo(newMsg.sender);
+
+        if (user.newMessagePopup) {
+          setnewMessageReceived({
+            ...newMsg,
+            senderName: name,
+            senderProfilePic: profilePicUrl,
+          });
+          showNewMessageModal(true);
+        }
+      });
+    }
+
+    return () => {
+      if (socket.current) {
+        socket.current.emit('disconnect');
+        socket.current.off();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -55,6 +88,16 @@ function Index({ user, postsData, errorLoading }) {
   return (
     <>
       {showToastr && <PostDeleteToastr />}
+
+      {newMessageModal && newMessageReceived !== null && (
+        <MessageNotificationModal
+          socket={socket}
+          showNewMessageModal={showNewMessageModal}
+          newMessageModal={newMessageModal}
+          newMessageReceived={newMessageReceived}
+          user={user}
+        />
+      )}
       <Segment>
         <CreatePost user={user} setPosts={setPosts} />
 
