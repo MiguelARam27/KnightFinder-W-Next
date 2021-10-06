@@ -68,10 +68,8 @@ io.on('connection', (socket) => {
   socket.on(
     'sendMessageFromNotification',
     async ({ userId, msgSendToUserId, msg }) => {
-      console.log(userId, msgSendToUserId);
       const { newMsg, error } = await sendMessage(userId, msgSendToUserId, msg);
       const receiverSocket = findConnectedUser(msgSendToUserId);
-      console.log(receiverSocket);
 
       if (receiverSocket) {
         // WHEN YOU WANT TO SEND MESSAGE TO A PARTICULAR SOCKET

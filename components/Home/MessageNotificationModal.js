@@ -12,9 +12,7 @@ function MessageNotificationModal({
   const [messageText, setText] = useState('');
   const [loading, setLoading] = useState(false);
 
-  console.log(newMessageReceived);
   const formSubmit = (e) => {
-    alert('here');
     e.preventDefault();
     if (socket.current) {
       socket.current.emit('sendMessageFromNotification', {
