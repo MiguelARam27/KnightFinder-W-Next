@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Message, Segment } from 'semantic-ui-react';
 import baseUrl from '../../utils/baseUrl';
 import catchErrors from '../../utils/catchErrors';
@@ -57,15 +58,19 @@ function ResetPage() {
             type="email"
             iconPosition="left"
             label="Email"
-            placeholder="Enter Email Address"
+            placeholder="Enter email address"
             name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
           />
+
           <Button
             disabled={loading || email.length === 0}
             icon="configure"
             type="submit"
             color="orange"
-            content="submit"
+            content="Submit"
           />
         </Segment>
       </Form>

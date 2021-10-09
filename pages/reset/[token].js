@@ -1,4 +1,5 @@
-import { Form, Button, Message, Segment } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Form, Button, Message, Segment, Divider } from 'semantic-ui-react';
 import baseUrl from '../../utils/baseUrl';
 import catchErrors from '../../utils/catchErrors';
 import axios from 'axios';
@@ -15,8 +16,7 @@ function TokenPage() {
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    const [name, value] = e.target.value;
-    setNewPassword({ ...newPassword, [name]: value });
+    setNewPassword({ ...newPassword, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -27,6 +27,15 @@ function TokenPage() {
     e.preventDefault();
     setLoading(true);
     try {
+      if (field1 !== field2) {
+        return setErrorMsg('passwords do not match');
+      }
+
+      await axios.post(`${baseUrl}/api/reset/token`, {
+        password: field1,
+        token: router.query.token,
+      });
+      setSuccess(true);
     } catch (error) {
       setErrorMsg(catchErrors(error));
     }
@@ -34,17 +43,16 @@ function TokenPage() {
 
   return (
     <>
-      {emailChecked ? (
+      {success ? (
         <Message
           attached
           success
+          size="large"
+          header="Password reset successfull"
           icon="check"
-          header="Password reset successfully"
-          content="Login again"
+          content="Login Again"
           style={{ cursor: 'pointer' }}
-          onClick={() => {
-            router.push('/login');
-          }}
+          onClick={() => router.push('/login')}
         />
       ) : (
         <Message
