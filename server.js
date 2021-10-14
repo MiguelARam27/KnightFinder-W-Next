@@ -36,10 +36,32 @@ io.on('connection', (socket) => {
   });
 
   socket.on('likePost', async ({ postId, userId, like }) => {
-    const { success, error } = await likeOrUnlikePost(postId, userId, like);
+    const {
+      success,
+      name,
+      profilePicUrl,
+      username,
+      postByUserId,
+      error,
+    } = await likeOrUnlikePost(postId, userId, like);
 
     if (success) {
       socket.emit('postLiked');
+
+      if (postByUserId !== userId) {
+        const receiverSocket = findConnectedUser(postByUserId);
+
+        if (receiverSocket && like) {
+          //When you want to data to one client
+
+          io.to(receiverSocket.socketId).emit('newNotificationReceived', {
+            name,
+            profilePicUrl,
+            username,
+            postId,
+          });
+        }
+      }
     }
   });
 

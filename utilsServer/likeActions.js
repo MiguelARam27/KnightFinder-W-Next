@@ -6,10 +6,9 @@ const {
 } = require('../utilsServer/notificationsActions');
 
 const likeOrUnlikePost = async (postId, userId, like) => {
-  console.log(postId, userId, like);
   try {
     const post = await PostModel.findById(postId);
-    console.log(post);
+
     if (!post) {
       return { error: 'No post Found' };
     }
@@ -21,28 +20,25 @@ const likeOrUnlikePost = async (postId, userId, like) => {
         return { error: 'Already liked' };
       }
 
-      console.log(post);
       await post.likes.unshift({ user: userId });
       await post.save();
-
-      console.log(post);
 
       if (post.user.toString() !== userId) {
         await newLikeNotification(userId, postId, post.user.toString());
       }
     } else {
       const isLiked =
-        post.likes.filter((like) => like.user.toString() === userId).length > 0;
+        post.likes.filter((like) => like.user.toString() === userId).length ===
+        0;
 
-      if (isLiked) {
-        return { error: 'Post not liked before' };
-      }
+      if (isLiked) return { error: 'Post not liked before' };
 
       const indexOf = post.likes
-        .map((like = like.user.toString()))
+        .map((like) => like.user.toString())
         .indexOf(userId);
 
       await post.likes.splice(indexOf, 1);
+
       await post.save();
 
       if (post.user.toString() !== userId) {
@@ -50,7 +46,17 @@ const likeOrUnlikePost = async (postId, userId, like) => {
       }
     }
 
-    return { success: true };
+    const user = await UserModel.findById(userId);
+
+    const { name, profilePicUrl, username } = user;
+
+    return {
+      success: true,
+      name,
+      profilePicUrl,
+      username,
+      postByUserId: post.user.toString(),
+    };
   } catch (error) {
     return { error: 'Server error' };
   }
