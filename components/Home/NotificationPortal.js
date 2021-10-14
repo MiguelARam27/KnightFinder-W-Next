@@ -1,7 +1,7 @@
 import { Segment, TransitionablePortal, Icon, Feed } from 'semantic-ui-react';
 // import newMsgSound from '../../utils/newMsgSound';
 import { useRouter } from 'next/router';
-import calculateTime from '../../utils/calculatedTime';
+import calculateTime from '../../utils/calculateTime';
 
 function NotificationPortal({
   newNotification,
@@ -12,28 +12,15 @@ function NotificationPortal({
 
   const { name, profilePicUrl, username, postId } = newNotification;
 
-  console.log('loaded');
   return (
     <TransitionablePortal
-      // transition={{ animation: 'fade left', duration: '500' }}
+      transition={{ animation: 'fade left', duration: '500' }}
       onClose={() => notificationPopup && showNotificationPopup(false)}
-      // onOpen={alert('open')}
+      // onOpen={newMsgSound}
       open={notificationPopup}
     >
-      <div
-        style={{ width: '20rem', height: '20rem', backgroundColor: 'black' }}
-        className="salt"
-      >
-        <h1 style={{ color: 'white' }}>hello</h1>
-      </div>
-      {/* <Segment
-        style={{
-          right: '50%',
-          position: 'fixed',
-          top: '20%',
-          width: '20rem',
-          zIndex: 1000,
-        }}
+      <Segment
+        style={{ right: '5%', position: 'fixed', top: '10%', zIndex: 1000 }}
       >
         <Icon
           name="close"
@@ -59,7 +46,7 @@ function NotificationPortal({
             </Feed.Content>
           </Feed.Event>
         </Feed>
-      </Segment> */}
+      </Segment>
     </TransitionablePortal>
   );
 }
