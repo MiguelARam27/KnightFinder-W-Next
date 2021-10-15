@@ -1,7 +1,7 @@
 import { Segment, TransitionablePortal, Icon, Feed } from 'semantic-ui-react';
 // import newMsgSound from '../../utils/newMsgSound';
 import { useRouter } from 'next/router';
-import calculateTime from '../../utils/calculateTime';
+import calculateTime from '../../utils/calculatedTime';
 
 function NotificationPortal({
   newNotification,

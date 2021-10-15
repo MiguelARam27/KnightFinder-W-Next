@@ -103,7 +103,6 @@ function Index({ user, postsData, errorLoading }) {
     }
   }, []);
 
-  console.log(notificationPopup && newNotification !== null);
   return (
     <>
       {notificationPopup && newNotification !== null && (
