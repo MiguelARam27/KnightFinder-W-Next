@@ -8,14 +8,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'semantic-ui-css/semantic.min.css';
 import { ThemeProvider } from '@mui/material';
 import theme from '../config/theme';
-// import { ThemeProvider } from '@mui/material/styles';
-console.log(theme);
+import LandingLayout from '../components/Layout/LandingLayout';
+
 function MyApp({ Component, pageProps }) {
+  const { token } = pageProps;
   return (
     <ThemeProvider theme={theme}>
-      <Layout {...pageProps}>
-        <Component {...pageProps} />
-      </Layout>
+      {token === null ? (
+        <LandingLayout>
+          <Component {...pageProps} />
+        </LandingLayout>
+      ) : (
+        <Layout {...pageProps}>
+          <Component {...pageProps} />
+        </Layout>
+      )}
     </ThemeProvider>
   );
 }
@@ -23,16 +30,17 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = async ({ Component, ctx }) => {
   const { token } = parseCookies(ctx);
   let pageProps = {};
+  pageProps.token = token || null;
 
   const protectedRoutes =
-    ctx.pathname === '/' ||
+    ctx.pathname === '/home' ||
     ctx.pathname === '/[username]' ||
     ctx.pathname === '/post/[postId]' ||
     ctx.pathname === '/messages' ||
     ctx.pathname === '/notifications';
 
   if (!token) {
-    protectedRoutes && redirectUser(ctx, '/login');
+    protectedRoutes && redirectUser(ctx, '/');
   }
   //
   else {
@@ -41,13 +49,14 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
     }
 
     try {
+      console.log('here');
       const res = await axios.get(`${baseUrl}/api/auth`, {
         headers: { Authorization: token },
       });
 
       const { user, userFollowStats } = res.data;
 
-      if (user) !protectedRoutes && redirectUser(ctx, '/');
+      if (user) !protectedRoutes && redirectUser(ctx, '/home');
 
       pageProps.user = user;
       pageProps.userFollowStats = userFollowStats;

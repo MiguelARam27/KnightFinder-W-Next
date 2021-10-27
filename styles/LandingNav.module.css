@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+.nav {
+  padding: 0.2rem 0;
+}
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.mobileLogoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: 'center';
+}
+.mobileLogoContainer h1 {
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.logoContainer h1 {
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.linkContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  justify-content: center;
+}
+
+.link {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+
+  color: white;
+  text-transform: uppercase;
+  font-size: 2rem;
+  transition: all 0.1s ease-out;
+  padding: 1.2rem;
+  height: 100%;
+  margin: 0 2rem;
+
+  /* &:hover {
+    transform: scale(1.01);
+    border-bottom: 0.2rem solid $color-secondary-dark;
+    text-shadow: 0.5rem 4rem 2rem rgba(253, 253, 253, 0.2);
+    cursor: pointer;
+  }
+
+  &__active {
+    transform: scale(1.01);
+    border-bottom: 0.2rem solid $color-secondary-dark;
+    text-shadow: 0.5rem 4rem 2rem rgba(253, 253, 253, 0.2);
+  }
+
+  // @include respond(phone) {
+  //   display: none;
+  // } */
+}
+.link:hover {
+  transform: scale(1.01);
+  color: #ba9b37;
+  /* border-bottom: 0.2rem solid gold; */
+
+  cursor: pointer;
+}
+
+.mobileMenuContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  justify-content: flex-end;
+}

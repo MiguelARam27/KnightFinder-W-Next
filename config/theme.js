@@ -29,15 +29,15 @@ export const theme = createTheme({
   listItemText: {
     fontSize: '0.7em', //Insert your required size
   },
-  breakpoints: {
-    values: {
-      xs: 320,
-      sm: 600,
-      md: 960,
-      lg: 1024,
-      xl: 1920,
-    },
-  },
+  // breakpoints: {
+  //   values: {
+  //     xs: 320,
+  //     sm: 600,
+  //     md: 960,
+  //     lg: 1024,
+  //     xl: 1920,
+  //   },
+  // },
   palette: {
     common: {
       black: '#000',
@@ -68,8 +68,8 @@ export const theme = createTheme({
     },
     primary: {
       light: '#0EA44B',
-      main: '#0EA44B',
-      // main: "#0EA44B",
+      main: '#FFC904;',
+      metallic: '#BA9B37',
       dark: 'rgba(0, 113, 95, 1)',
       contrastText: '#fff',
     },
