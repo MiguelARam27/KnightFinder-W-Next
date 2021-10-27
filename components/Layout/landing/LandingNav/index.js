@@ -20,7 +20,7 @@ export default function LandingNav() {
       <AppBar
         position="static"
         sx={{ bgcolor: 'common.black', display: { xs: 'none', lg: 'block' } }}
-        style={{ padding: '.8rem 0' }}
+        className={styles.nav}
       >
         <Toolbar>
           <Grid
@@ -52,8 +52,6 @@ export default function LandingNav() {
               <Link href={'/register'}>
                 <a className={styles.link}>register</a>
               </Link>
-              {/* <span>hello</span>
-            <span>hello</span> */}
             </Grid>
           </Grid>
         </Toolbar>

@@ -1,0 +1,14 @@
+.footer {
+  height: 10vh;
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid rgba(#ffc904, 0.5);
+}
+
+.footer img {
+  height: 2.8rem;
+  width: 2.8rem;
+}
