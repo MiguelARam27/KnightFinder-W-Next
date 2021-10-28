@@ -12,12 +12,14 @@ export default function Wave() {
 
   return (
     <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 100% 100%"
+      width="2595"
+      height="1031"
+      viewBox="0 0 1000 363"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ position: 'absolute', zIndex: '0', left: '0', bottom: '0' }}
       //   fill="none"
       //   xmlns="http://www.w3.org/2000/svg"
-      style={{ position: 'absolute', zIndex: '1', right: '0', bottom: '0' }}
     >
       <path
         d="M1175 73.0319C1103.8 325.032 145.166 202 61.4995 29.9997C72.5002 35.1864 64.6967 30.3426 66.8041 30.0319C66.8505 30.0107 66.9157 30 66.9998 30C66.9333 30.0119 66.8681 30.0225 66.8041 30.0319C58.2863 33.9276 692.63 420.139 1175 73.0319Z"
