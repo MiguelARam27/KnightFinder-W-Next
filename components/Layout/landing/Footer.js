@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       <footer className={styles.footer}>
-        <img src="/img/Logo.png" alt="ucf logo" />
+        <img src="/img/Footer.png" alt="ucf logo" />
       </footer>
     </>
   );

@@ -33,7 +33,7 @@ export default function LandingNav() {
             <Grid item lg={4}>
               <div className={styles.logoContainer}>
                 <img
-                  src={'/img/Logo.png'}
+                  src={'/img/Knight.png'}
                   style={{ height: '5rem', width: '5rem' }}
                 />
                 <Typography variant="h1">knightFinder</Typography>

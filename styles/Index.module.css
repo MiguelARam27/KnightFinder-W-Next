@@ -1,0 +1,9 @@
+.container {
+  background-color: black;
+  /* background-image: url('/img/Logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; */
+  min-height: 50vh;
+  padding: 0.5rem 0;
+}

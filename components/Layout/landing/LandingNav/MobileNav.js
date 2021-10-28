@@ -27,7 +27,7 @@ export default function MobileNav() {
     <AppBar
       position="static"
       sx={{ display: { lg: 'none', xs: 'block' }, bgcolor: 'common.black' }}
-      style={{ padding: '.7rem 0' }}
+      className={styles.nav}
     >
       <Toolbar>
         <Grid
@@ -40,7 +40,7 @@ export default function MobileNav() {
           <Grid item xs={4}>
             <div className={styles.mobileLogoContainer}>
               <img
-                src={'/img/Logo.png'}
+                src={'/img/Knight.png'}
                 style={{ height: '2.5rem', width: '2.5rem' }}
               />
               <Typography variant="h1">knightFinder</Typography>

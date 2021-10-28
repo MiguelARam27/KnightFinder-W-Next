@@ -5,10 +5,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 2px solid rgba(#ffc904, 0.5);
+  border-top: 1px solid rgb(255, 201, 4, 0.5);
+  padding: 5rem 0;
+}
+.footer img {
+  height: 5.5rem;
+  width: 14rem;
 }
 
-.footer img {
-  height: 2.8rem;
-  width: 2.8rem;
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 968px) {
+  .footer {
+    height: auto;
+    padding: 1rem 0;
+  }
+  .footer img {
+    height: 4rem;
+    width: 10rem;
+  }
 }
