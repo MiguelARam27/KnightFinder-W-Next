@@ -10,7 +10,7 @@ import {
   ListItemIcon,
   ListItemButton,
 } from '@mui/material';
-import styles from '@/styles/LandingNav.module.css';
+import styles from '@/styles/LandingNav.module.scss';
 import Link from 'next/link';
 import MobileNav from './MobileNav';
 

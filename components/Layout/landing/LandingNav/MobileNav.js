@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import styles from '@/styles/LandingNav.module.css';
+import styles from '@/styles/LandingNav.module.scss';
 import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
