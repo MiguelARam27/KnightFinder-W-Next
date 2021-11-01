@@ -1,0 +1,19 @@
+.container {
+  min-height: 90vh;
+  background-color: black;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url('/img/student.jpg');
+
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .wrapper {
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+  }
+}

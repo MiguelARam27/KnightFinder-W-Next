@@ -6,6 +6,7 @@ import {
   FooterMessage,
 } from '../components/Common/WelcomeMessage';
 import cookie from 'js-cookie';
+import styles from '@/styles/Login.module.scss';
 function Login() {
   const [user, setUser] = useState({
     email: '',
@@ -46,63 +47,67 @@ function Login() {
 
   return (
     <>
-      <HeaderMessage />
-      <Form
-        loading={formLoading}
-        error={errorMsg !== null}
-        onSubmit={handleSubmit}
-      >
-        <Message
-          error
-          header="Oops!"
-          content={errorMsg}
-          onDismiss={() => setErrorMsg(null)}
-        />
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <HeaderMessage />
+          <Form
+            loading={formLoading}
+            error={errorMsg !== null}
+            onSubmit={handleSubmit}
+          >
+            <Message
+              error
+              header="Oops!"
+              content={errorMsg}
+              onDismiss={() => setErrorMsg(null)}
+            />
 
-        <Segment>
-          <Form.Input
-            required
-            label="Email"
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            fluid
-            icon="envelope"
-            iconPosition="left"
-            type="email"
-          />
+            <Segment>
+              <Form.Input
+                required
+                label="Email"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={handleChange}
+                fluid
+                icon="envelope"
+                iconPosition="left"
+                type="email"
+              />
 
-          <Form.Input
-            label="Password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            fluid
-            icon={{
-              name: 'eye',
-              circular: true,
-              link: true,
-              onClick: () => setShowPassword(!showPassword),
-            }}
-            iconPosition="left"
-            type={showPassword ? 'text' : 'password'}
-            required
-          />
+              <Form.Input
+                label="Password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+                fluid
+                icon={{
+                  name: 'eye',
+                  circular: true,
+                  link: true,
+                  onClick: () => setShowPassword(!showPassword),
+                }}
+                iconPosition="left"
+                type={showPassword ? 'text' : 'password'}
+                required
+              />
 
-          <Divider hidden />
-          <Button
-            icon="signup"
-            content="Login"
-            type="submit"
-            color="orange"
-            disabled={submitDisabled}
-          />
-        </Segment>
-      </Form>
+              <Divider hidden />
+              <Button
+                icon="signup"
+                content="Login"
+                type="submit"
+                color="orange"
+                disabled={submitDisabled}
+              />
+            </Segment>
+          </Form>
 
-      <FooterMessage />
+          <FooterMessage />
+        </div>
+      </div>
     </>
   );
 }

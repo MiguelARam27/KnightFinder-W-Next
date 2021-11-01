@@ -11,6 +11,7 @@
   justify-content: space-between;
 
   @include respond(tab-land) {
+    min-height: 80vh;
     padding: 0.5rem 1rem;
   }
 }
@@ -52,6 +53,9 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       z-index: 2;
+      @include respond(tab-land) {
+        font: 2rem;
+      }
     }
   }
   p {
@@ -70,8 +74,88 @@
 .rightContainer {
   z-index: 1;
   img {
-    width: 110%;
-    height: 110%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.container2 {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5rem 10rem;
+  color: #fff;
+  background-color: #000;
+  font-family: 'Montserrat', sans-serif;
+  @include respond(tab-land) {
+    padding: 0.5rem 1rem;
+  }
+
+  .services h2 {
+    padding-bottom: 5rem;
+    font-weight: lighter;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    span {
+      color: #ffc904;
+    }
+    @include respond(tab-land) {
+      font: 2rem;
+    }
+  }
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    @include respond(tab-land) {
+      justify-content: center;
+    }
+
+    .card {
+      flex-basis: 20rem;
+      padding: 1rem 0;
+      .icon {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0.5rem 0.25rem;
+        @include respond(tab-land) {
+          justify-content: space-between;
+          svg {
+            min-width: 50%;
+          }
+          h3 {
+            min-width: 50%;
+          }
+        }
+        svg {
+          font-size: 3rem;
+          color: #ffc904;
+        }
+        h3 {
+          margin-left: 1rem;
+          background-color: #fff;
+          color: #000;
+          font-size: 1.5rem;
+          padding: 1rem;
+          line-height: 1;
+          text-transform: capitalize;
+        }
+      }
+      p {
+        padding: 3rem 0;
+        color: #ccc;
+        font-size: 1.4rem;
+        line-height: 150%;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+  img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 }
