@@ -7,6 +7,7 @@ import {
 } from '../components/Common/WelcomeMessage';
 import cookie from 'js-cookie';
 import styles from '@/styles/Login.module.scss';
+import Link from 'next/link';
 function Login() {
   const [user, setUser] = useState({
     email: '',
@@ -48,8 +49,48 @@ function Login() {
   return (
     <>
       <div className={styles.container}>
+        <div className={styles.bottomGraphic} />
+        <div className={styles.topGraphic} />
         <div className={styles.wrapper}>
-          <HeaderMessage />
+          <div className={styles.header}>
+            <h1>Welcome Back Knight!</h1>
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={handleChange}
+              name="email"
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="Password">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              name="password"
+              onChange={handleChange}
+            />
+          </div>
+          <Divider hidden />
+          <Button
+            content="Login"
+            type="submit"
+            // disabled={submitDisabled}
+          />
+          <div className={styles.buttonContainer}>
+            <Link href={'/forgot'}>
+              <span className={styles.button1}>forgot</span>
+            </Link>
+            <Link href={'/signup'}>
+              <span className={styles.button2}>Signup</span>
+            </Link>
+          </div>
+
+          {/* <HeaderMessage />
           <Form
             loading={formLoading}
             error={errorMsg !== null}
@@ -93,19 +134,10 @@ function Login() {
                 type={showPassword ? 'text' : 'password'}
                 required
               />
-
-              <Divider hidden />
-              <Button
-                icon="signup"
-                content="Login"
-                type="submit"
-                color="orange"
-                disabled={submitDisabled}
-              />
             </Segment>
           </Form>
 
-          <FooterMessage />
+          <FooterMessage /> */}
         </div>
       </div>
     </>

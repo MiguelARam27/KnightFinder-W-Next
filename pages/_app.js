@@ -9,7 +9,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { ThemeProvider } from '@mui/material';
 import theme from '../config/theme';
 import LandingLayout from '../components/Layout/LandingLayout';
-import '../styles/main.module.css';
+// import '@/styles/Main.module.scss';
 function MyApp({ Component, pageProps }) {
   const { token } = pageProps;
   return (
