@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import baseUrl from '../utils/baseUrl';
+import baseUrl from '../../utils/baseUrl';
 import { parseCookies } from 'nookies';
-import { NoProfile, NoProfilePosts } from '../components/Layout/NoData';
+import { NoProfile, NoProfilePosts } from '../../components/Layout/NoData';
 import cookie from 'js-cookie';
 import { Grid } from 'semantic-ui-react';
-import ProfileMenuTabs from '../components/Profile/ProfileMenuTabs';
-import ProfileHeader from '../components/Profile/ProfileHeader';
-import CardPost from '../components/post/CardPost';
-import { PlaceHolderPosts } from '../components/Layout/PlaceHolderGroup';
-import { PostDeleteToastr } from '../components/Layout/Toastr';
-import Followers from '../components/Profile/Followers';
-import Following from '../components/Profile/Following';
-import UpdateProfile from '../components/Profile/UpdateProfile';
-import Settings from '../components/Profile/Settings';
+import ProfileMenuTabs from '../../components/Profile/ProfileMenuTabs';
+import ProfileHeader from '../../components/Profile/ProfileHeader';
+import CardPost from '../../components/post/CardPost';
+import { PlaceHolderPosts } from '../../components/Layout/PlaceHolderGroup';
+import { PostDeleteToastr } from '../../components/Layout/Toastr';
+import Followers from '../../components/Profile/Followers';
+import Following from '../../components/Profile/Following';
+import UpdateProfile from '../../components/Profile/UpdateProfile';
+import Settings from '../../components/Profile/Settings';
 function ProfilePage({
   profile,
   followersLength,

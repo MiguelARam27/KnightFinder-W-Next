@@ -34,7 +34,7 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
 
   const protectedRoutes =
     ctx.pathname === '/home' ||
-    ctx.pathname === '/[username]' ||
+    ctx.pathname === '/user/[username]' ||
     ctx.pathname === '/post/[postId]' ||
     ctx.pathname === '/messages' ||
     ctx.pathname === '/notifications';
