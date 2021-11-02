@@ -49,7 +49,7 @@ export default function LandingNav() {
               <Link href={'/login'}>
                 <a className={styles.link}>login</a>
               </Link>
-              <Link href={'/register'}>
+              <Link href={'/signup'}>
                 <a className={styles.link}>register</a>
               </Link>
             </Grid>

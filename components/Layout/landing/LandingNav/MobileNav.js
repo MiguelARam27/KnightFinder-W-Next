@@ -82,29 +82,29 @@ export default function MobileNav() {
           >
             <ListItem>
               <ListItemText>
-                <Link href={'/signup'}>
-                  <a
-                    className={styles.link}
-                    onClick={() => {
-                      handleDrawerToggle();
-                    }}
-                  >
-                    register
-                  </a>
-                </Link>
-              </ListItemText>
-            </ListItem>
-            <ListItem>
-              <ListItemText>
-                <Link href={'/login'} onClick={handleDrawerToggle}>
-                  <a
+                <Link href={'/login'}>
+                  <span
                     className={styles.link}
                     onClick={() => {
                       handleDrawerToggle();
                     }}
                   >
                     login
-                  </a>
+                  </span>
+                </Link>
+              </ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemText>
+                <Link href={'/signup'}>
+                  <span
+                    className={styles.link}
+                    onClick={() => {
+                      handleDrawerToggle();
+                    }}
+                  >
+                    register
+                  </span>
                 </Link>
               </ListItemText>
             </ListItem>

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Message, Segment, Divider } from 'semantic-ui-react';
+import { Button, Divider } from 'semantic-ui-react';
 import { loginUser } from '../utils/authUser';
-import {
-  HeaderMessage,
-  FooterMessage,
-} from '../components/Common/WelcomeMessage';
+import { ToastContainer, toast } from 'react-toastify';
 import cookie from 'js-cookie';
 import styles from '@/styles/Login.module.scss';
 import Link from 'next/link';
@@ -26,12 +23,18 @@ function Login() {
     setUser((prev) => ({ ...prev, [name]: value }));
   };
 
+  //useEffect for disabled button
   useEffect(() => {
     const isUser = Object.values({ email, password }).every((item) =>
       Boolean(item)
     );
+
     isUser ? setSubmitDisabled(false) : setSubmitDisabled(true);
   }, [user]);
+
+  useEffect(() => {
+    errorMsg && toast.error(errorMsg);
+  }, [errorMsg]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +52,7 @@ function Login() {
   return (
     <>
       <div className={styles.container}>
+        <ToastContainer />
         <div className={styles.bottomGraphic} />
         <div className={styles.topGraphic} />
         <div className={styles.wrapper}>
@@ -79,11 +83,12 @@ function Login() {
           <Button
             content="Login"
             type="submit"
-            // disabled={submitDisabled}
+            disabled={submitDisabled}
+            onClick={handleSubmit}
           />
           <div className={styles.buttonContainer}>
             <Link href={'/forgot'}>
-              <span className={styles.button1}>forgot</span>
+              <span className={styles.button1}>forgot password</span>
             </Link>
             <Link href={'/signup'}>
               <span className={styles.button2}>Signup</span>

@@ -16,20 +16,6 @@
     letter-spacing: 1px;
   }
 }
-.mobileLogoContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: 'center';
-  h1 {
-    font-size: 1.5rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    margin-left: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-}
 
 .linkContainer {
   display: flex;
@@ -57,9 +43,32 @@
   }
 }
 
+.mobileLogoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: 'center';
+  h1 {
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    margin-left: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
 .mobileMenuContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+}
+.link {
+  color: white;
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }

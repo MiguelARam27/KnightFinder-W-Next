@@ -31,6 +31,7 @@ export const loginUser = async (user, setError, setLoading) => {
 
     setToken(res.data);
   } catch (error) {
+    console.log(error);
     const errorMsg = catchErrors(error);
     setError(errorMsg);
   }
