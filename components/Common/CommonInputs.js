@@ -1,11 +1,11 @@
-import React from "react";
-import { Form, Button, Message, TextArea, Divider } from "semantic-ui-react";
-
+import React from 'react';
+import { Form, Button, Message, TextArea, Divider } from 'semantic-ui-react';
+import styles from '@/styles/SignUp.module.scss';
 function CommonInputs({
   user: { bio, facebook, instagram, youtube, twitter },
   handleChange,
   showSocialLinks,
-  setShowSocialLinks
+  setShowSocialLinks,
 }) {
   return (
     <>

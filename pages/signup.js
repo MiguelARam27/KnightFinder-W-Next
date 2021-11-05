@@ -10,6 +10,7 @@ import axios from 'axios';
 import baseUrl from '../utils/baseUrl';
 import { registerUser } from '../utils/authUser';
 import uploadPic from '../utils/uploadPicToCloudinary';
+import styles from '@/styles/SignUp.module.scss';
 const regexUserName = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
 let cancel;
 
@@ -60,6 +61,10 @@ function Signup() {
     isUser ? setSubmitDisabled(false) : setSubmitDisabled(true);
   }, [user]);
 
+  useEffect(() => {
+    document.title = 'Sign up';
+  }, []);
+
   const checkUsername = async () => {
     setUsernameLoading(true);
     try {
@@ -109,7 +114,100 @@ function Signup() {
 
   return (
     <>
-      <HeaderMessage />
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <form className={styles.form}>
+            <div className={styles.header}>
+              <h1>Join your fellow Knights!</h1>
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                required
+                placeholder="Name"
+                name="name"
+                value={name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="Email">Email</label>
+              <input
+                type="email"
+                required
+                placeholder="Enter your email address"
+                name="email"
+                value={email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                required
+                label="password"
+                placeholder="Enter your password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <Form.Input
+                loading={usernameLoading}
+                error={!usernameAvailable}
+                required
+                label="Username"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  if (regexUserName.test(e.target.value)) {
+                    setUsernameAvailable(true);
+                  } else {
+                    setUsernameAvailable(false);
+                  }
+                }}
+                fluid
+                icon={usernameAvailable ? 'check' : 'close'}
+                iconPosition="left"
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="name">Name</label>
+              <CommonInputs
+                user={user}
+                showSocialLinks={showSocialLinks}
+                setShowSocialLinks={setShowSocialLinks}
+                handleChange={handleChange}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <ImageDropDiv
+                mediaPreview={mediaPreview}
+                setMediaPreview={setMediaPreview}
+                setMedia={setMedia}
+                inputRef={inputRef}
+                highlighted={highlighted}
+                setHighlighted={setHighlighted}
+                handleChange={handleChange}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <Button
+                icon="signup"
+                content="Signup"
+                type="submit"
+                color="orange"
+                disabled={submitDisabled || !usernameAvailable}
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      {/* <HeaderMessage />
       <Form
         loading={formLoading}
         error={errorMsg !== null}
@@ -213,7 +311,7 @@ function Signup() {
         </Segment>
       </Form>
 
-      <FooterMessage />
+      <FooterMessage /> */}
     </>
   );
 }

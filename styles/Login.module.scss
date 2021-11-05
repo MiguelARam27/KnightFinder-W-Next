@@ -82,6 +82,10 @@
         height: 2.5rem;
         padding: 0.5rem 0 0.5rem 1rem;
         border: none !important;
+
+        &:focus-visible {
+          outline: $color-main auto 1px;
+        }
       }
     }
     button {
