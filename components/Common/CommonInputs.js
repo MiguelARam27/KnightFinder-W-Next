@@ -9,64 +9,68 @@ function CommonInputs({
 }) {
   return (
     <>
-      <Form.Field
-        required
-        control={TextArea}
-        name="bio"
-        value={bio}
-        onChange={handleChange}
-        placeholder="bio"
-      />
-
-      <Button
-        content="Add Social Links"
-        color="red"
-        icon="at"
-        type="button"
-        onClick={() => setShowSocialLinks(!showSocialLinks)}
-      />
-
+      <div className={styles.inputContainer}>
+        <label htmlFor="bio">Bio</label>
+        <Form.Field
+          required
+          control={TextArea}
+          name="bio"
+          value={bio}
+          onChange={handleChange}
+          placeholder="tell us about yourself"
+        />
+      </div>
+      <div className={styles.buttonContainer}>
+        <Button
+          content={!showSocialLinks ? 'Show social' : 'Hide social'}
+          onClick={() => setShowSocialLinks(!showSocialLinks)}
+        ></Button>
+      </div>
+      <Divider />
       {showSocialLinks && (
         <>
-          <Divider />
-          <Form.Input
-            icon="facebook f"
-            iconPosition="left"
-            name="facebook"
-            value={facebook}
-            onChange={handleChange}
-          />
-
-          <Form.Input
-            icon="twitter"
-            iconPosition="left"
-            name="twitter"
-            value={twitter}
-            onChange={handleChange}
-          />
-
-          <Form.Input
-            icon="instagram"
-            iconPosition="left"
-            name="instagram"
-            value={instagram}
-            onChange={handleChange}
-          />
-
-          <Form.Input
-            icon="youtube"
-            iconPosition="left"
-            name="youtube"
-            value={youtube}
-            onChange={handleChange}
-          />
-
-          <Message
-            icon="attention"
-            info
-            size="small"
-            header="Social Media Links Are Optional!"
-          />
+          <div className={styles.socialContainer}>
+            <div className={styles.social}>
+              <i aria-hidden="true" className="facebook f icon"></i>
+              <input
+                type="text"
+                name="facebook"
+                value={facebook}
+                onChange={handleChange}
+                placeholder="Enter Facebook Url"
+              />
+            </div>
+            <div className={styles.social}>
+              <i aria-hidden="true" className="twitter f icon"></i>
+              <input
+                type="text"
+                name="twitter"
+                value={twitter}
+                onChange={handleChange}
+                placeholder="Enter twitter Url"
+              />
+            </div>
+            <div className={styles.social}>
+              <i aria-hidden="true" className="instagram icon"></i>
+              <input
+                type="text"
+                name="instagram"
+                value={instagram}
+                onChange={handleChange}
+                placeholder="Enter instagram Url"
+              />
+            </div>
+            <div className={styles.social}>
+              <i aria-hidden="true" className="youtube f icon"></i>
+              <input
+                type="text"
+                name="youtube"
+                value={youtube}
+                onChange={handleChange}
+                placeholder="Enter youtube Url"
+              />
+            </div>
+          </div>
         </>
       )}
     </>

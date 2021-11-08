@@ -175,16 +175,16 @@ function Signup() {
                 iconPosition="left"
               />
             </div>
+
+            <CommonInputs
+              user={user}
+              showSocialLinks={showSocialLinks}
+              setShowSocialLinks={setShowSocialLinks}
+              handleChange={handleChange}
+            />
+
             <div className={styles.inputContainer}>
-              <label htmlFor="name">Name</label>
-              <CommonInputs
-                user={user}
-                showSocialLinks={showSocialLinks}
-                setShowSocialLinks={setShowSocialLinks}
-                handleChange={handleChange}
-              />
-            </div>
-            <div className={styles.inputContainer}>
+              <label htmlFor="name">Profile Pic</label>
               <ImageDropDiv
                 mediaPreview={mediaPreview}
                 setMediaPreview={setMediaPreview}
