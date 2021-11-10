@@ -54,7 +54,6 @@ const setToken = (token) => {
 
 export const logoutUser = (email) => {
   cookie.set('userEmail', email);
-  cookie.remove('token');
   Router.push('/login');
-  Router.reload();
+  cookie.remove('token');
 };

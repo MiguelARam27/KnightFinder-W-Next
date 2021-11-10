@@ -72,9 +72,10 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease-in-out;
-  &:hover {
-    border-left: 1px solid white;
-
-    padding-left: 1rem;
+  @include respond(tab-land) {
+    &:hover {
+      border-left: 1px solid white;
+      padding-left: 1rem;
+    }
   }
 }

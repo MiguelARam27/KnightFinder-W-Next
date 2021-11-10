@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import cookie from 'js-cookie';
 import styles from '@/styles/Login.module.scss';
 import Link from 'next/link';
+import Loader from '../components/Layout/Loader';
 function Login() {
   const [user, setUser] = useState({
     email: '',
@@ -80,12 +81,17 @@ function Login() {
             />
           </div>
           <Divider hidden />
-          <Button
-            content="Login"
-            type="submit"
-            disabled={submitDisabled}
-            onClick={handleSubmit}
-          />
+          {formLoading ? (
+            <Loader />
+          ) : (
+            <Button
+              content="Login"
+              type="submit"
+              disabled={submitDisabled}
+              onClick={handleSubmit}
+            />
+          )}
+
           <div className={styles.buttonContainer}>
             <Link href={'/forgot'}>
               <span className={styles.button1}>forgot password</span>

@@ -71,6 +71,7 @@ function CommonInputs({
               />
             </div>
           </div>
+          <Divider />
         </>
       )}
     </>

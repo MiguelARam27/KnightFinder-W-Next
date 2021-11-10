@@ -11,6 +11,7 @@ import baseUrl from '../utils/baseUrl';
 import { registerUser } from '../utils/authUser';
 import uploadPic from '../utils/uploadPicToCloudinary';
 import styles from '@/styles/SignUp.module.scss';
+import Loader from '../components/Layout/Loader';
 const regexUserName = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
 let cancel;
 
@@ -196,122 +197,22 @@ function Signup() {
               />
             </div>
             <div className={styles.inputContainer}>
-              <Button
-                icon="signup"
-                content="Signup"
-                type="submit"
-                color="orange"
-                disabled={submitDisabled || !usernameAvailable}
-              />
+              {formLoading ? (
+                <Loader />
+              ) : (
+                <Button
+                  icon="signup"
+                  content="Signup"
+                  type="submit"
+                  color="orange"
+                  onClick={handleSubmit}
+                  disabled={submitDisabled || !usernameAvailable}
+                />
+              )}
             </div>
           </form>
         </div>
       </div>
-      {/* <HeaderMessage />
-      <Form
-        loading={formLoading}
-        error={errorMsg !== null}
-        onSubmit={handleSubmit}
-      >
-        <Message
-          error
-          header="Oops!"
-          content={errorMsg}
-          onDismiss={() => setErrorMsg(null)}
-        />
-
-        <Segment>
-          <ImageDropDiv
-            mediaPreview={mediaPreview}
-            setMediaPreview={setMediaPreview}
-            setMedia={setMedia}
-            inputRef={inputRef}
-            highlighted={highlighted}
-            setHighlighted={setHighlighted}
-            handleChange={handleChange}
-          />
-          <Form.Input
-            required
-            label="Name"
-            placeholder="Name"
-            name="name"
-            value={name}
-            onChange={handleChange}
-            fluid
-            icon="user"
-            iconPosition="left"
-          />
-
-          <Form.Input
-            required
-            label="Email"
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            fluid
-            icon="envelope"
-            iconPosition="left"
-            type="email"
-          />
-
-          <Form.Input
-            label="Password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            fluid
-            icon={{
-              name: 'eye',
-              circular: true,
-              link: true,
-              onClick: () => setShowPassword(!showPassword),
-            }}
-            iconPosition="left"
-            type={showPassword ? 'text' : 'password'}
-            required
-          />
-
-          <Form.Input
-            loading={usernameLoading}
-            error={!usernameAvailable}
-            required
-            label="Username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-              if (regexUserName.test(e.target.value)) {
-                setUsernameAvailable(true);
-              } else {
-                setUsernameAvailable(false);
-              }
-            }}
-            fluid
-            icon={usernameAvailable ? 'check' : 'close'}
-            iconPosition="left"
-          />
-
-          <CommonInputs
-            user={user}
-            showSocialLinks={showSocialLinks}
-            setShowSocialLinks={setShowSocialLinks}
-            handleChange={handleChange}
-          />
-
-          <Divider hidden />
-          <Button
-            icon="signup"
-            content="Signup"
-            type="submit"
-            color="orange"
-            disabled={submitDisabled || !usernameAvailable}
-          />
-        </Segment>
-      </Form>
-
-      <FooterMessage /> */}
     </>
   );
 }
