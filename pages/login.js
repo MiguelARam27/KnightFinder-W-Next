@@ -41,6 +41,11 @@ function Login() {
     e.preventDefault();
 
     await loginUser(user, setErrorMsg, setFormLoading);
+
+    setUser({
+      email: '',
+      password: '',
+    });
   };
 
   useEffect(() => {

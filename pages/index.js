@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Wave from '../components/Layout/landing/Wave';
 import styles from '@/styles/Index.module.scss';
 import { Grid } from '@mui/material';
@@ -6,6 +7,9 @@ import PeopleIcon from '@mui/icons-material/People';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 export default function index() {
+  useEffect(() => {
+    document.title = 'KnightFinder';
+  }, []);
   return (
     <>
       <Grid container className={styles.container}>
