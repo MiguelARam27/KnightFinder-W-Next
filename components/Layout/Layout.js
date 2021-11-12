@@ -13,7 +13,7 @@ import nprogress from 'nprogress';
 import Router, { useRouter } from 'next/router';
 import SideMenu from './SideMenu';
 import Search from './Search';
-
+import styles from '@/styles/HomeNav.module.scss';
 function Layout({ children, user }) {
   const contextRef = createRef();
   const router = useRouter();
@@ -27,47 +27,37 @@ function Layout({ children, user }) {
   return (
     <>
       <HeadTags />
-      {user ? (
-        <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
-          <Ref innerRef={contextRef}>
-            <Grid>
-              {!messagesRoute ? (
-                <>
-                  <Grid.Column floated="left" width={2}>
-                    <Sticky context={contextRef}>
-                      <SideMenu user={user} />
-                    </Sticky>
-                  </Grid.Column>
 
-                  <Grid.Column width={10}>
-                    <Visibility context={contextRef}>{children}</Visibility>
-                  </Grid.Column>
+      <div className={styles.wrapper}>
+        <Ref innerRef={contextRef}>
+          {!messagesRoute ? (
+            <>
+              <div className={styles.sidebar}>
+                <Sticky context={contextRef}>
+                  <SideMenu user={user} />
+                </Sticky>
+              </div>
 
-                  <Grid.Column floated="left" width={4}>
-                    <Sticky context={contextRef}>
-                      <Segment basic>
-                        <Search />
-                      </Segment>
-                    </Sticky>
-                  </Grid.Column>
-                </>
-              ) : (
-                <>
-                  <Grid.Column floated="left" width={1} />
-                  <Grid.Column width={15}>{children}</Grid.Column>
-                </>
-              )}
-            </Grid>
-          </Ref>
-        </div>
-      ) : (
-        <>
-          <Navbar />
-          <Container text style={{ paddingTop: '1rem' }}>
-            {children}
-          </Container>
-        </>
-      )}
+              <Grid.Column width={10}>
+                <Visibility context={contextRef}>{children}</Visibility>
+              </Grid.Column>
+
+              <Grid.Column floated="left" width={4}>
+                <Sticky context={contextRef}>
+                  <Segment basic>
+                    <Search />
+                  </Segment>
+                </Sticky>
+              </Grid.Column>
+            </>
+          ) : (
+            <>
+              <Grid.Column floated="left" width={1} />
+              <Grid.Column width={15}>{children}</Grid.Column>
+            </>
+          )}
+        </Ref>
+      </div>
     </>
   );
 }

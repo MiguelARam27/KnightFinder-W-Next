@@ -49,7 +49,6 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
     }
 
     try {
-      console.log('here');
       const res = await axios.get(`${baseUrl}/api/auth`, {
         headers: { Authorization: token },
       });
