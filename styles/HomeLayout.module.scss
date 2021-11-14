@@ -1,0 +1,43 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  .sidebar {
+    width: 15vw;
+    height: 100vh;
+    background-color: #15202b;
+    ul {
+      list-style-type: none;
+      color: white;
+      display: flex;
+
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      li {
+        width: 70%;
+        padding: 0.5em 0.5em;
+        display: flex;
+        align-items: center;
+
+        &:not(:first-of-type) {
+          margin-top: 2rem;
+        }
+
+        i {
+          margin-right: 1.5rem;
+        }
+        span {
+          margin: 0;
+          font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+          font-weight: 700;
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .container {
+    width: 100%;
+    background-color: red;
+  }
+}

@@ -11,9 +11,9 @@ import {
 } from 'semantic-ui-react';
 import nprogress from 'nprogress';
 import Router, { useRouter } from 'next/router';
-import SideMenu from './SideMenu';
+import SideMenu from './home/SideMenu';
 import Search from './Search';
-import styles from '@/styles/HomeNav.module.scss';
+import styles from '@/styles/HomeLayout.module.scss';
 function Layout({ children, user }) {
   const contextRef = createRef();
   const router = useRouter();
@@ -32,11 +32,7 @@ function Layout({ children, user }) {
         <Ref innerRef={contextRef}>
           {!messagesRoute ? (
             <>
-              <div className={styles.sidebar}>
-                <Sticky context={contextRef}>
-                  <SideMenu user={user} />
-                </Sticky>
-              </div>
+              <SideMenu user={user} />
 
               <Grid.Column width={10}>
                 <Visibility context={contextRef}>{children}</Visibility>
