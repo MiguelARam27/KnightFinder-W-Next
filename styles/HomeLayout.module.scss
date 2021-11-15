@@ -5,7 +5,10 @@
     width: 15vw;
     height: 100vh;
     background-color: #15202b;
+    display: flex;
+    justify-content: center;
     ul {
+      margin-left: 0;
       list-style-type: none;
       color: white;
       display: flex;
@@ -13,11 +16,19 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
+      padding: 0 !important;
+
+      .link_active {
+        color: $color-main !important;
+      }
       li {
         width: 70%;
         padding: 0.5em 0.5em;
         display: flex;
         align-items: center;
+        &:hover {
+          cursor: pointer;
+        }
 
         &:not(:first-of-type) {
           margin-top: 2rem;
