@@ -1,12 +1,23 @@
 .wrapper {
-  min-height: 100vh;
-  display: flex;
+  position: relative;
+
+  overflow: hidden;
+  .flexWrapper {
+    display: flex;
+    min-height: 100vh;
+  }
+
   .sidebar {
     width: 15vw;
     height: 100vh;
     background-color: #15202b;
     display: flex;
     justify-content: center;
+    padding-top: 2rem;
+    @include respond(tab-land) {
+      display: none;
+    }
+
     ul {
       margin-left: 0;
       list-style-type: none;
@@ -50,5 +61,95 @@
   .container {
     width: 100%;
     background-color: red;
+  }
+}
+
+.topbar {
+  display: none;
+  @include respond(tab-land) {
+    display: flex;
+    background-color: #15202b;
+    padding: 0.5rem 0.5rem;
+    position: relative;
+    flex-direction: row-reverse;
+  }
+  span {
+    padding: 1rem 1rem;
+    color: white;
+  }
+}
+
+.closed {
+  position: absolute;
+  top: 0;
+  right: -100rem !important;
+}
+.open {
+  position: absolute;
+  top: 0;
+  right: 0 !important;
+  display: flex;
+}
+.mobileSideBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  background-color: #15202b;
+  justify-content: center;
+  padding-top: 2rem;
+  transition: all 0.5s ease-in-out;
+  z-index: 1;
+
+  @include respond(tab-land) {
+    width: 45vw;
+  }
+  @include respond(phone) {
+    width: 65vw;
+  }
+
+  ul {
+    margin-left: 0;
+    list-style-type: none;
+    color: white;
+    display: flex;
+
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 !important;
+
+    .link_active {
+      color: $color-main !important;
+    }
+    li {
+      width: 100%;
+      padding: 0.5rem 0.5rem;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:not(:first-of-type) {
+        margin-top: 2rem;
+      }
+
+      i {
+        margin-right: 1.5rem;
+      }
+      span {
+        margin: 0;
+        font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+
+      @include respond(tab-land) {
+        padding: 1rem 2rem;
+      }
+    }
   }
 }
