@@ -16,7 +16,6 @@ function MobileSideMenu({
       return true;
     } else return false;
   };
-  console.log(router.pathname);
 
   return (
     <>
@@ -67,7 +66,7 @@ function MobileSideMenu({
               <span>Account</span>
             </li>
           </Link>
-          <li onClick={() => logoutUser(email)} onClick={() => handleClick()}>
+          <li onClick={() => logoutUser(email)}>
             <i className="log out large icon"></i>
             <span>Logout</span>
           </li>
