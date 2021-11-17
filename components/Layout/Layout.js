@@ -48,26 +48,15 @@ function Layout({ children, user }) {
               <>
                 <SideMenu user={user} showMobileMenu={showMobileMenu} />
 
-                {/* <Grid.Column width={10}>
-                  <Visibility context={contextRef}></Visibility>
-                </Grid.Column> */}
-
                 <div className={styles.mainContent}>{children}</div>
-                <div>
+                <div className={styles.searchContainer}>
                   <Search />
                 </div>
-                {/* 
-                <Grid.Column floated="left" width={4}>
-                  <Sticky context={contextRef}>
-                    <Segment basic>
-                      <Search />
-                    </Segment>
-                  </Sticky>
-                </Grid.Column> */}
               </>
             ) : (
               <>
-                <Grid.Column floated="left" width={1} />
+                {/* <Grid.Column floated="left" width={1} /> */}
+
                 <Grid.Column width={15}>{children}</Grid.Column>
               </>
             )}

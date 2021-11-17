@@ -4,6 +4,7 @@ import axios from 'axios';
 import cookie from 'js-cookie';
 import Router from 'next/router';
 import baseUrl from '../../utils/baseUrl';
+import styles from '@/styles/Search.module.scss';
 let cancel;
 const SearchComponent = () => {
   const [text, setText] = useState('');
