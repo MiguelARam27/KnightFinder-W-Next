@@ -4,13 +4,14 @@
   overflow: hidden;
   .flexWrapper {
     display: flex;
-    min-height: 100vh;
+    height: 100vh !important;
+    overflow: hidden !important;
   }
 
   .sidebar {
-    width: 15vw;
+    flex: 0.2;
     height: 100vh;
-    background-color: #15202b;
+    background-color: $color-bg-dark;
     display: flex;
     justify-content: center;
     padding-top: 2rem;
@@ -58,6 +59,29 @@
     }
   }
 
+  .mainContent {
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+
+    background-color: $color-bg-dark;
+    padding: 0 1.5rem 2rem 1.5rem;
+    outline: 1px solid grey;
+    flex: 0.65;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: $color-main !important;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-bg-dark !important;
+      border-radius: 5px;
+    }
+  }
+
   .container {
     width: 100%;
     background-color: red;
@@ -66,11 +90,13 @@
 
 .topbar {
   display: none;
+  height: $nav-bar-height;
   @include respond(tab-land) {
     display: flex;
     background-color: #15202b;
     padding: 0.5rem 0.5rem;
     position: relative;
+    align-items: center;
     flex-direction: row-reverse;
   }
   span {
@@ -96,7 +122,7 @@
   right: 0;
   width: 0;
   height: 100%;
-  background-color: #15202b;
+  background-color: $color-bg-dark;
   justify-content: center;
   padding-top: 2rem;
   transition: all 0.5s ease-in-out;

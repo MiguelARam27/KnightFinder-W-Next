@@ -1,6 +1,8 @@
 //colors
 $color-main: #b7a369;
-
+$color-bg-dark: #15202b;
+//dimensions
+$nav-bar-height: 5vh;
 //mixin for responsiveness
 @mixin respond($breakpoint) {
   @if $breakpoint == phone {
