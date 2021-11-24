@@ -25,6 +25,10 @@ function UpdateProfile({ Profile }) {
   const [media, setMedia] = useState(null);
   const [mediaPreview, setMediaPreview] = useState(null);
 
+  const showSocialLinksFunction = () => {
+    setShowSocialLinks(!showSocialLinks);
+  };
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -80,7 +84,7 @@ function UpdateProfile({ Profile }) {
         <CommonInputs
           user={profile}
           handleChange={handleChange}
-          showSocialLinks={showSocialLinks}
+          showSocialLinksFunction={showSocialLinksFunction}
           setShowSocialLinks={setShowSocialLinks}
         />
 

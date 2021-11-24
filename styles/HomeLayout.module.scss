@@ -72,7 +72,7 @@
     background-color: $color-bg-dark;
     padding: 1.5rem 1.5rem 2rem 1.5rem;
     outline: 1px solid grey;
-    flex: 0.65;
+    flex: 0.6;
     @include respond(tab-land) {
       flex: 1;
     }
@@ -92,7 +92,7 @@
   }
 
   .searchContainer {
-    flex: 0.15;
+    flex: 0.2;
     background-color: $color-bg-dark;
     display: flex;
     justify-content: center;

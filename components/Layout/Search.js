@@ -61,6 +61,7 @@ const SearchComponent = () => {
       onSearchChange={handleChange}
       minCharacters={1}
       onResultSelect={(e, data) => Router.push(`/${data.result.username}`)}
+      title={'title'}
     />
   );
 };

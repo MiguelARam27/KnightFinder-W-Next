@@ -5,7 +5,7 @@ function CommonInputs({
   user: { bio, facebook, instagram, youtube, twitter },
   handleChange,
   showSocialLinks,
-  setShowSocialLinks,
+  showSocialLinksFunction,
 }) {
   return (
     <>
@@ -23,7 +23,7 @@ function CommonInputs({
       <div className={styles.buttonContainer}>
         <Button
           content={!showSocialLinks ? 'Show social' : 'Hide social'}
-          onClick={() => setShowSocialLinks(!showSocialLinks)}
+          onClick={() => showSocialLinksFunction()}
         ></Button>
       </div>
       <Divider />
