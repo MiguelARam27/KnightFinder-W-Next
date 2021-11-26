@@ -80,6 +80,7 @@ const ImageModal = ({
                   overflow: 'auto',
                   height: comments.length > 2 ? '200px' : '60px',
                   marginBottom: '8px',
+                  width: '100%',
                 }}
               >
                 {comments.length > 0 &&
