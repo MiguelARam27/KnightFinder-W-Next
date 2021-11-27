@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { parseCookies } from 'nookies';
-import { Icon, Image, Divider, Modal } from 'semantic-ui-react';
+import {
+  Icon,
+  Image,
+  Divider,
+  Modal,
+  Popup,
+  Header,
+  Button,
+} from 'semantic-ui-react';
 import PostComments from '../../components/post/PostComments';
 import CommentInputField from '../../components/post/CommentInputField';
 
@@ -35,6 +43,10 @@ function PostPage({ post, errorLoading, user }) {
     comments,
   });
 
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
   if (errorLoading) {
     return <NoPostFound />;
   }
@@ -66,7 +78,7 @@ function PostPage({ post, errorLoading, user }) {
               wrapped
               ui={false}
               alt="PostImage"
-              onClick={() => setShowModal(true)}
+              onClick={toggleModal}
             />
           )}
           <div className="content">
@@ -76,9 +88,36 @@ function PostPage({ post, errorLoading, user }) {
               avatar
               circular
             />
+            {(user.role === 'root' || post.user._id === user._id) && (
+              <>
+                <Popup
+                  on="click"
+                  position="top right"
+                  trigger={
+                    <Image
+                      src="/deleteIcon.svg"
+                      style={{ cursor: 'pointer' }}
+                      size="mini"
+                      floated="right"
+                    />
+                  }
+                >
+                  <Header as="h4" content="Are you sure" />
+                  <p>This action is irreversible</p>
+                  <Button
+                    color="red"
+                    icon="trash"
+                    content="delete"
+                    onClick={() =>
+                      deletePost(post._id, setPosts, setShowToastr)
+                    }
+                  />
+                </Popup>
+              </>
+            )}
             <div className="header">
               <Link href={`/${post.user.username}`}>
-                <a>{post.user.name}</a>
+                <a className={styles.link}>{post.user.name}</a>
               </Link>
             </div>
             <div className="meta">
@@ -114,15 +153,24 @@ function PostPage({ post, errorLoading, user }) {
             />
 
             {comments.length > 0 &&
-              comments.map((comment) => (
-                <PostComments
-                  key={comment._id}
-                  comment={comment}
-                  postId={post._id}
-                  user={user}
-                  setComments={setComments}
-                />
-              ))}
+              comments.map(
+                (comment, i) =>
+                  i < 3 && (
+                    <PostComments
+                      key={comment._id}
+                      comment={comment}
+                      postId={post._id}
+                      user={user}
+                      setComments={setComments}
+                    />
+                  )
+              )}
+
+            {comments.length > 3 && (
+              <button className={styles.button} onClick={toggleModal}>
+                View more
+              </button>
+            )}
 
             <Divider hidden />
 
