@@ -2,10 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 .post {
   box-shadow: none !important;
-  outline: 1px solid grey;
+  outline: 1px solid black;
 
   .link {
     color: $color-main;

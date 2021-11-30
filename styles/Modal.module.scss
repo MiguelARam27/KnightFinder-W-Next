@@ -1,0 +1,47 @@
+.modalwrapper {
+  display: flex;
+
+  overflow: hidden;
+
+  background-color: blue !important;
+  width: 100% !important;
+  justify-content: stretch;
+  min-height: 25rem;
+
+  .image {
+    width: 100%;
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+    }
+  }
+  .content {
+    width: 100%;
+    background-color: red;
+
+    .description {
+      padding: 0.8rem 0;
+      display: flex;
+      justify-content: space-between;
+      span {
+        color: rgba(0, 0, 0, 0.68);
+        font-size: 1.7rem !important;
+        letter-spacing: 0.1px !important;
+        word-spacing: 0.35px !important;
+      }
+    }
+    .contentWrapper {
+      height: 15rem;
+      overflow-y: auto !important;
+    }
+
+    .commentField {
+      padding: 0.4rem 0;
+    }
+  }
+
+  @include respond(tab-land) {
+    flex-direction: column;
+  }
+}

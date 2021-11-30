@@ -46,6 +46,7 @@ function PostPage({ post, errorLoading, user }) {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+  console.log(post.description);
 
   if (errorLoading) {
     return <NoPostFound />;
@@ -124,6 +125,7 @@ function PostPage({ post, errorLoading, user }) {
               <time>{calculateTime(post.createdAt)}</time>
             </div>
             {post.location && <div className="meta">{post.location}</div>}
+            <div className="description">{post.text}</div>
           </div>
           <div className="extra content">
             <Icon
