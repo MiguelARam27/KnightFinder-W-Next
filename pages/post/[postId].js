@@ -46,7 +46,6 @@ function PostPage({ post, errorLoading, user }) {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-  console.log(post.description);
 
   if (errorLoading) {
     return <NoPostFound />;

@@ -77,11 +77,12 @@ const ImageModal = ({
                 <time>{calculateTime(post.createdAt)}</time>
               </div>
               {post.location && <div className="meta">{post.location}</div>}
+              <div className={styles.postWrapper}>
+                <h2>{post.text}</h2>
+              </div>
+            </div>
+            <div className="content">
               <div className={styles.description}>
-                <div className={styles.postWrapper}>
-                  <h2>{post.text}</h2>
-                </div>
-                <hr />
                 <div className={styles.iconWrapper}>
                   <Icon
                     name={isLiked ? 'heart' : 'heart outline'}
