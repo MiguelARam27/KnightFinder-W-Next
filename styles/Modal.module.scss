@@ -3,7 +3,6 @@
 
   overflow: hidden;
 
-  background-color: blue !important;
   width: 100% !important;
   justify-content: stretch;
   min-height: 25rem;
@@ -18,22 +17,51 @@
   }
   .content {
     width: 100%;
-    background-color: red;
 
     .description {
       padding: 0.8rem 0;
       display: flex;
-      justify-content: space-between;
-      span {
-        color: rgba(0, 0, 0, 0.68);
-        font-size: 1.7rem !important;
-        letter-spacing: 0.1px !important;
-        word-spacing: 0.35px !important;
+      flex-direction: column;
+      align-items: flex-start;
+
+      hr {
+        border-top: 1px solid black;
+
+        width: 100%;
+      }
+      .postWrapper {
+        width: 100%;
+
+        h2 {
+          color: rgba(0, 0, 0, 0.68);
+          font-size: 1.5rem !important;
+          letter-spacing: 0.1px !important;
+          word-spacing: 0.35px !important;
+          font-weight: 500 !important;
+          text-align: center;
+          text-align: left;
+        }
+        span {
+          color: rgba(0, 0, 0, 0.68);
+          font-size: 1.2rem !important;
+          letter-spacing: 0.1px !important;
+          word-spacing: 0.35px !important;
+        }
+      }
+
+      .iconWrapper {
+        padding: 1rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
+
     .contentWrapper {
       height: 15rem;
       overflow-y: auto !important;
+
+      padding: 0.5rem 0.5rem;
     }
 
     .commentField {

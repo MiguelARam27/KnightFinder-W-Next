@@ -33,19 +33,21 @@
 
       flex-direction: column;
       justify-content: flex-start;
-      align-items: center;
+      align-items: flex-start;
       padding: 0 !important;
 
       .link_active {
         color: $color-main !important;
       }
       li {
-        width: 70%;
         padding: 0.5em 0.5em;
         display: flex;
         align-items: center;
         &:hover {
           cursor: pointer;
+          border-radius: 1rem;
+          background-color: rgba(250, 248, 248, 0.1);
+          color: #ba9b37;
         }
 
         &:not(:first-of-type) {
