@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import baseUrl from '../utils/baseUrl';
 import { Feed, Segment, Divider, Container } from 'semantic-ui-react';
+
 import { parseCookies } from 'nookies';
+import cookie from 'js-cookie';
 import { NoNotifications } from '../components/Layout/NoData';
 
 import LikeNotification from '../components/Notifications/LikeNotification';
