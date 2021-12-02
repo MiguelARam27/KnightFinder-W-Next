@@ -19,6 +19,7 @@ import { deletePost, likePost } from '../../utils/postActions';
 import LikeList from './LikeList';
 import ImageModal from './ImageModal';
 import NoImageModal from './NoImageModal';
+import styles from '@/styles/Post.module.scss';
 const CardPost = ({ post, user, setPosts, setShowToastr, socket }) => {
   const [likes, setLikes] = useState(post.likes);
 
@@ -59,26 +60,22 @@ const CardPost = ({ post, user, setPosts, setShowToastr, socket }) => {
           )}
         </Modal>
       )}
-      <Segment basic>
-        <Card color="teal" fluid>
-          {post?.picUrl && (
-            <Image
-              src={post.picUrl}
-              style={{ cursor: 'pointer', ojectFit: 'contain' }}
-              floated="left"
-              wrapped
-              ui={false}
-              alt="PostImage"
-              onClick={() => setShowModal(true)}
-            />
-          )}
 
-          <Card.Content>
-            <Image
-              floated="left"
-              src={post?.user?.profilePicUrl}
-              avatar
-              circular
+      <div className="ui basic segment">
+        <div className={`${styles.post} ui fluid card`}>
+          {post?.picUrl && (
+            <div
+              className={styles.postImage}
+              onClick={() => setShowModal(true)}
+            >
+              <img src={post.picUrl} alt="PostImage" />
+            </div>
+          )}
+          <div className="content">
+            <img
+              src={post.user.profilePicUrl}
+              alt=""
+              className="ui avatar left floated image"
             />
             {(user.role === 'root' || post.user._id === user._id) && (
               <>
@@ -107,26 +104,20 @@ const CardPost = ({ post, user, setPosts, setShowToastr, socket }) => {
                 </Popup>
               </>
             )}
-
-            <Card.Header>
+            <div className="header">
               <Link href={`/${post.user.username}`}>
-                <a>{post.user.name}</a>
+                <a className={styles.link}>{post.user.name}</a>
               </Link>
-            </Card.Header>
-            <Card.Meta>{calculateTime(post.createdAt)}</Card.Meta>
-            {post.location && <Card.Meta content={post.location} />}
-
-            <Card.Description
-              style={{
-                fontSize: '17px',
-                letterSpacing: '0.1px',
-                wordSpacing: '0.35px',
-              }}
-            >
-              {post.text}
-            </Card.Description>
-          </Card.Content>
-          <Card.Content>
+            </div>
+            <div className="meta">
+              <time>{calculateTime(post.createdAt)}</time>
+            </div>
+            {post.location && <div className="meta">{post.location}</div>}
+            <div className={styles.postWrapper}>
+              <span>{post.text}</span>
+            </div>
+          </div>
+          <div className="content">
             <Icon
               name={isLiked ? 'heart' : 'heart outline'}
               color="red"
@@ -190,15 +181,14 @@ const CardPost = ({ post, user, setPosts, setShowToastr, socket }) => {
               )}
 
             {comments.length > 3 && (
-              <Button
-                content="view More"
-                color="teal"
-                basic
-                circular
+              <button
+                className={styles.button}
                 onClick={() => {
                   setShowModal(true);
                 }}
-              />
+              >
+                View more
+              </button>
             )}
 
             <Divider hidden />
@@ -207,9 +197,9 @@ const CardPost = ({ post, user, setPosts, setShowToastr, socket }) => {
               postId={post._id}
               setComments={setComments}
             />
-          </Card.Content>
-        </Card>
-      </Segment>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

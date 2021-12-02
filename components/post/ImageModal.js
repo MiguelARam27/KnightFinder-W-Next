@@ -78,7 +78,7 @@ const ImageModal = ({
               </div>
               {post.location && <div className="meta">{post.location}</div>}
               <div className={styles.postWrapper}>
-                <h2>{post.text}</h2>
+                <span>{post.text}</span>
               </div>
             </div>
             <div className="content">

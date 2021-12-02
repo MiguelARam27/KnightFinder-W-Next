@@ -1,0 +1,95 @@
+.post {
+  box-shadow: none !important;
+  outline: 1px solid black;
+
+  .postImage {
+    width: 100%;
+    height: 20rem;
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+    }
+  }
+
+  .link {
+    color: $color-main;
+  }
+
+  .postWrapper {
+    width: 100%;
+
+    padding: 0.15rem 0;
+    margin-top: 1.15rem;
+    span {
+      color: rgba(0, 0, 0, 0.68);
+
+      font-size: 1.145rem;
+      letter-spacing: 0.1px !important;
+      word-spacing: 0.35px !important;
+      font-weight: 500 !important;
+      text-align: center;
+      text-align: left;
+    }
+  }
+}
+
+.button {
+  color: $color-main;
+  font-weight: 400;
+  border-radius: 1.2rem;
+  padding: 0.75rem 0.75rem;
+  outline: none !important;
+  font-size: 1.1rem;
+
+  background-color: white;
+  text-transform: none;
+  text-shadow: none !important;
+  transition: all 0.3s ease-in-out;
+  border-width: 0;
+  border: 1px solid $color-main;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+    color: black;
+    background-color: $color-main;
+  }
+  &:focus {
+    outline: 1px solid red;
+  }
+}
+.content {
+  width: 100%;
+
+  .description {
+    padding: 0.2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    hr {
+      border-top: 1px solid black;
+
+      width: 100%;
+    }
+
+    .iconWrapper {
+      padding: 1rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .contentWrapper {
+    height: 15rem;
+    overflow-y: auto !important;
+
+    padding: 0.5rem 0.5rem;
+  }
+
+  .commentField {
+    padding: 0.4rem 0;
+  }
+}
