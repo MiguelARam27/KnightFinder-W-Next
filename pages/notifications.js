@@ -10,6 +10,8 @@ import { NoNotifications } from '../components/Layout/NoData';
 import LikeNotification from '../components/Notifications/LikeNotification';
 import CommentNotification from '../components/Notifications/CommentNotification';
 import FollowerNotification from '../components/Notifications/FollowerNotification';
+
+import styles from '@/styles/NotificationsPage.module.scss';
 function Notifications({ notifications, errorLoading, user, userFollowStats }) {
   const [loggedUserFollowStats, setUserFollowStats] = useState(userFollowStats);
 
@@ -30,55 +32,45 @@ function Notifications({ notifications, errorLoading, user, userFollowStats }) {
   }, []);
   return (
     <>
-      <Container style={{ marginTop: '1.5rem' }}>
+      <div className={`${styles.container} container`}>
         {notifications.length > 0 ? (
-          <Segment color="teal" raised>
-            <div
-              style={{
-                maxHeight: '40rem',
-                overflow: 'auto',
-                height: '40rem',
-                position: 'relative',
-                width: '100%',
-              }}
-            >
-              <Feed size="small">
-                {notifications.map((notification, key) => (
-                  <React.Fragment key={key}>
-                    {notification.type === 'newLike' &&
-                      notification.post !== null && (
-                        <LikeNotification
-                          key={notification._id}
-                          notification={notification}
-                        />
-                      )}
-
-                    {notification.type === 'newComment' &&
-                      notification.post !== null && (
-                        <CommentNotification
-                          key={notification._id}
-                          notification={notification}
-                        />
-                      )}
-
-                    {notification.type === 'newFollower' && (
-                      <FollowerNotification
+          <Segment raised>
+            <Feed size="small">
+              {notifications.map((notification, key) => (
+                <React.Fragment key={key}>
+                  {notification.type === 'newLike' &&
+                    notification.post !== null && (
+                      <LikeNotification
                         key={notification._id}
                         notification={notification}
-                        loggedUserFollowStats={loggedUserFollowStats}
-                        setUserFollowStats={setUserFollowStats}
                       />
                     )}
-                  </React.Fragment>
-                ))}
-              </Feed>
-            </div>
+
+                  {notification.type === 'newComment' &&
+                    notification.post !== null && (
+                      <CommentNotification
+                        key={notification._id}
+                        notification={notification}
+                      />
+                    )}
+
+                  {notification.type === 'newFollower' && (
+                    <FollowerNotification
+                      key={notification._id}
+                      notification={notification}
+                      loggedUserFollowStats={loggedUserFollowStats}
+                      setUserFollowStats={setUserFollowStats}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+            </Feed>
           </Segment>
         ) : (
           <NoNotifications />
         )}
         <Divider hidden />
-      </Container>
+      </div>
     </>
   );
 }
