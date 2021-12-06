@@ -12,8 +12,8 @@ export default function index() {
   }, []);
   return (
     <>
-      <Grid container className={styles.container}>
-        <Grid item xs={12} lg={6} className={styles.leftContainer}>
+      <div className={styles.container}>
+        <div className={styles.leftContainer}>
           <div className={styles.hide} style={{ overflow: 'hidden' }}>
             <h2>We connect</h2>
           </div>
@@ -22,20 +22,20 @@ export default function index() {
           </div>
           <div className={styles.hide} style={{ overflow: 'hidden' }}>
             <h2>
-              Fellow <span>knights</span>.
+              Fellow <span>knights</span>
             </h2>
           </div>
           <p>A complementary service for all UCF students </p>
-        </Grid>
-        <Grid item xs={12} lg={6} className={styles.rightContainer}>
+        </div>
+        <div className={styles.rightContainer}>
           <div className={styles.image} style={{ zIndex: '2' }}>
             <img src="/img/Major.jpg" alt="Students discussing info" />
           </div>
-        </Grid>
+        </div>
         <Wave />
-      </Grid>
-      <Grid container className={styles.container2}>
-        <Grid item xs={12} lg={6}>
+      </div>
+      <div className={styles.container2}>
+        <div>
           <div className={styles.services}>
             <h2>
               Be a <span>Knight</span> for life
@@ -73,11 +73,11 @@ export default function index() {
               </div>
             </div>
           </div>
-        </Grid>
-        <Grid item xs={12} lg={6}>
+        </div>
+        <div>
           <img src="/img/grad.jpg" alt="graduating student" />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </>
   );
 }

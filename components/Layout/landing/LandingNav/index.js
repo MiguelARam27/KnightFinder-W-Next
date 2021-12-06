@@ -14,7 +14,12 @@ import styles from '@/styles/LandingNav.module.scss';
 import Link from 'next/link';
 import MobileNav from './MobileNav';
 
+import { useRouter } from 'next/router';
 export default function LandingNav() {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push('/');
+  };
   return (
     <>
       <AppBar
@@ -31,7 +36,7 @@ export default function LandingNav() {
             spacing={2}
           >
             <Grid item lg={4}>
-              <div className={styles.logoContainer}>
+              <div className={styles.logoContainer} onClick={handleClick}>
                 <img
                   src={'/img/Knight.png'}
                   style={{ height: '5rem', width: '5rem' }}
