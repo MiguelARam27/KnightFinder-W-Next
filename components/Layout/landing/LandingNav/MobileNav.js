@@ -40,7 +40,7 @@ export default function MobileNav() {
           <Grid item xs={4}>
             <div className={styles.mobileLogoContainer}>
               <img
-                src={'/img/Knight.png'}
+                src={'/img/knight.png'}
                 style={{ height: '2.5rem', width: '2.5rem' }}
               />
               <Typography variant="h1">knightFinder</Typography>
