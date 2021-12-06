@@ -1,15 +1,6 @@
-import { useEffect, useState } from 'react';
+import react from 'react';
 
 export default function Wave() {
-  const [state, setstate] = useState(false);
-  useEffect(() => {
-    function handleResize() {
-      console.log('resized to: ', window.innerWidth, 'x', window.innerHeight);
-    }
-
-    window.addEventListener('resize', handleResize);
-  }, []);
-
   return (
     <svg
       width="2595"
