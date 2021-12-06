@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Form, Button, Image, Divider, Message, Icon } from 'semantic-ui-react';
 import uploadPic from '../../utils/uploadPicToCloudinary';
 import { submitNewPost } from '../../utils/postActions';
+import styles from '@/styles/CreatePost.module.scss';
 function CreatePost({ user, setPosts }) {
   const [newPost, setNewPost] = useState({ text: '', location: '' });
   const [loading, setLoading] = useState(false);
@@ -140,12 +141,16 @@ function CreatePost({ user, setPosts }) {
         </div>
         <Divider hidden />
 
-        <Button
-          circular
+        <button
           disabled={newPost.text === '' || loading}
-          content={<strong>Post</strong>}
-          style={{ backgroundColor: '#1DA1F2', color: 'white' }}
-        />
+          className={
+            newPost.text === '' || loading
+              ? `${styles.button} ${styles.disabled}`
+              : styles.button
+          }
+        >
+          Post
+        </button>
       </Form>
     </>
   );
