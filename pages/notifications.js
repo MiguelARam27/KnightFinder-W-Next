@@ -34,7 +34,7 @@ function Notifications({ notifications, errorLoading, user, userFollowStats }) {
     <>
       <div className={`${styles.container} container`}>
         {notifications.length > 0 ? (
-          <Segment raised>
+          <Segment>
             <div className="ui small feed">
               {notifications.map((notification, key) => (
                 <React.Fragment key={key}>
