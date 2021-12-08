@@ -1,23 +1,26 @@
 import React from 'react';
 import { Divider, Feed } from 'semantic-ui-react';
 import calculateTime from '../../utils/calculatedTime';
+import styles from '@/styles/NotificationsPage.module.scss';
 
 function CommentNotification({ notification }) {
   return (
     <>
-      <Feed.Event>
-        <Feed.Label image={notification.user.profilePicUrl} />
-        <Feed.Content>
-          <Feed.Summary>
-            <>
-              <Feed.User as="a" href={`/${notification.user.username}`}>
-                {notification.user.name}
-              </Feed.User>{' '}
-              commented on your{' '}
-              <a href={`/post/${notification.post._id}`}>post.</a>
-              <Feed.Date>{calculateTime(notification.date)}</Feed.Date>
-            </>
-          </Feed.Summary>
+      <div className="event">
+        <div className="label">
+          <img src={notification.user.profilePicUrl} />
+        </div>
+        <div className="content">
+          <div className="summary">
+            <a className={styles.link} href={`/${notification.user.username}`}>
+              {notification.user.name}
+            </a>{' '}
+            commented on your{' '}
+            <a className={styles.link} href={`/post/${notification.post._id}`}>
+              post.
+            </a>
+            <Feed.Date>{calculateTime(notification.date)}</Feed.Date>
+          </div>
 
           {notification.post.picUrl && (
             <Feed.Extra images>
@@ -27,10 +30,10 @@ function CommentNotification({ notification }) {
             </Feed.Extra>
           )}
           <Feed.Extra text>
-            <strong>{notification.text}</strong>
+            <strong>"{notification.text}"</strong>
           </Feed.Extra>
-        </Feed.Content>
-      </Feed.Event>
+        </div>
+      </div>
       <Divider />
     </>
   );
