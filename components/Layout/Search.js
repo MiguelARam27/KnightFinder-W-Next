@@ -5,6 +5,7 @@ import cookie from 'js-cookie';
 import Router from 'next/router';
 import baseUrl from '../../utils/baseUrl';
 import styles from '@/styles/Search.module.scss';
+import Link from 'next/link';
 let cancel;
 const SearchComponent = () => {
   const [text, setText] = useState('');
@@ -60,7 +61,7 @@ const SearchComponent = () => {
       results={results}
       onSearchChange={handleChange}
       minCharacters={1}
-      onResultSelect={(e, data) => Router.push(`/${data.result.username}`)}
+      onResultSelect={(e, data) => Router.push(`/user/${data.result.username}`)}
       title={'title'}
     />
   );
