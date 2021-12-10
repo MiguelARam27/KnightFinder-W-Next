@@ -14,6 +14,7 @@ import Message from '../components/Messages/Message';
 import getUserInfo from '../utils/getUserInfo';
 import newMsgSound from '../utils/newMsgSound';
 import cookie from 'js-cookie';
+import styles from '@/styles/MessagesPage.module.scss';
 // import cookie from 'js-cookie';
 
 const scrollDivToBottom = (divRef) => {
@@ -178,7 +179,7 @@ function Messages({ chatsData, user }) {
     }
   }, []);
 
-  //use Effect to scroll to bottom
+  // use Effect to scroll to bottom
   useEffect(() => {
     messages.length > 0 && scrollDivToBottom(MessageDivRef);
   }, [messages]);
@@ -217,19 +218,69 @@ function Messages({ chatsData, user }) {
 
   return (
     <>
-      <Segment padded basic size="large" style={{ marginTop: '5px' }}>
-        <Header
-          icon="home"
-          content="Go Back!"
-          onClick={() => router.push('/')}
-          style={{ cursor: 'pointer' }}
-        />
-        <Divider hidden />
-
-        <div style={{ marginBottom: '10px' }}>
-          <ChatListSearch chats={chats} setChats={setChats} />
+      <div className={styles.top}>
+        <div className="ui header" onClick={() => router.push('/home')}>
+          <i aria-hidden="true" className="home icon"></i>
+          <div className="content">
+            <span className={styles.header}>Home</span>
+          </div>
         </div>
-        {chats && chats?.length > 0 ? (
+      </div>
+      <div className={styles.messagesWrapper}>
+        <Divider hidden />
+        <div className={styles.messagesWrapper}>
+          <div className={styles.leftContainer}>
+            <ChatListSearch chats={chats} setChats={setChats} />
+            <div className="segment">
+              {chats.map((chat, index) => {
+                return (
+                  <Chat
+                    connectedUsers={connectedUsers}
+                    key={index}
+                    chat={chat}
+                    setChats={setChats}
+                    deleteChat={deleteChat}
+                  />
+                );
+              })}
+            </div>
+          </div>
+          <div className={styles.rightContainer}>
+            {router.query.message && (
+              <>
+                {messages.length > 0 && (
+                  <>
+                    <div className={styles.banner}>
+                      <Banner bannerData={bannerData} />
+                    </div>
+                    <div className={styles.messagesContainer}>
+                      {messages.map((message, index) => (
+                        <Message
+                          key={index}
+                          bannerProfilePic={bannerData.profilePicUrl}
+                          message={message}
+                          user={user}
+                          setMessages={setMessages}
+                          messagesWith={openChatId.current}
+                          MessageDivRef={MessageDivRef}
+                          deleteMessage={deleteMessage}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+                <div className={styles.messageInputContainer}>
+                  <MessageInputField sendMessage={sendMessage} />
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* <div style={{ marginBottom: '10px' }}>
+          <ChatListSearch chats={chats} setChats={setChats} />
+        </div> */}
+        {/* {chats && chats?.length > 0 ? (
           <>
             <Grid stackable>
               <Grid.Column width={4}>
@@ -241,6 +292,7 @@ function Messages({ chatsData, user }) {
                       maxHeight: '15rem',
                     }}
                   >
+                    <ChatListSearch chats={chats} setChats={setChats} />
                     {chats.map((chat, index) => {
                       return (
                         <Chat
@@ -278,7 +330,7 @@ function Messages({ chatsData, user }) {
                           </div>
                           {messages.map((message, index) => (
                             <Message
-                              keys={index}
+                              key={index}
                               bannerProfilePic={bannerData.profilePicUrl}
                               message={message}
                               user={user}
@@ -299,8 +351,8 @@ function Messages({ chatsData, user }) {
           </>
         ) : (
           <NoMessages />
-        )}
-      </Segment>
+        )} */}
+      </div>
     </>
   );
 }

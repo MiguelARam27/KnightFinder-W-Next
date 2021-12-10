@@ -1,0 +1,106 @@
+.top {
+  padding: 1rem 2.5rem;
+  background-color: $color-bg-dark;
+  color: white;
+  border-bottom: 1px solid $color-main;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  .header {
+    color: white !important;
+  }
+
+  @include respond(tab-land) {
+    display: none;
+  }
+
+  i {
+    color: $color-main;
+  }
+}
+
+.messagesWrapper {
+  width: 100%;
+  height: 95vh;
+  background-color: $color-bg-dark;
+  display: flex;
+
+  .leftContainer {
+    width: 25%;
+    border-right: 1px solid $color-main;
+    background-color: $color-bg-dark;
+    overflow: auto;
+    min-height: 100%;
+    padding-top: 0.5rem;
+    &::-webkit-scrollbar {
+      width: 0.5em;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: $color-main !important;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-bg-dark !important;
+      border-radius: 5px;
+    }
+
+    .chat {
+      width: 100%;
+      background-color: whitesmoke;
+      min-height: 2rem;
+      overflow: hidden;
+      display: flex;
+      margin: 1.5em 0;
+      padding: 1.25em 0.5em;
+      &:hover {
+        cursor: pointer;
+      }
+
+      .avatar {
+        width: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: yellow;
+
+        img {
+          width: 100%;
+          border-radius: 50%;
+          height: 3.5em;
+          width: 3.5em;
+        }
+      }
+
+      .info {
+        width: 65%;
+        background-color: green;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding-right: 0.5em;
+
+        .deleteIcon {
+          padding: 0.5em 0;
+        }
+      }
+    }
+  }
+  .rightContainer {
+    width: 100%;
+    height: 100%;
+
+    .banner {
+      height: 10vh;
+    }
+    .messagesContainer {
+      height: 75vh;
+      overflow: auto !important;
+    }
+
+    .messageInputContainer {
+      height: 10vh;
+      background-color: red;
+    }
+  }
+}

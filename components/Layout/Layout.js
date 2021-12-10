@@ -55,9 +55,7 @@ function Layout({ children, user }) {
               </>
             ) : (
               <>
-                {/* <Grid.Column floated="left" width={1} /> */}
-
-                <Grid.Column width={15}>{children}</Grid.Column>
+                <div className={styles.messageContainer}>{children}</div>
               </>
             )}
           </Ref>
