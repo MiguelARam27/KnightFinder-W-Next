@@ -29,7 +29,7 @@ const sendMessage = async (userId, msgSendToUserId, msg) => {
     // RECEIVER
     const msgSendToUser = await ChatModel.findOne({ user: msgSendToUserId });
 
-    const newMsg = {
+    let newMsg = {
       sender: userId,
       receiver: msgSendToUserId,
       msg,
@@ -40,15 +40,23 @@ const sendMessage = async (userId, msgSendToUserId, msg) => {
       (chat) => chat.messagesWith.toString() === msgSendToUserId
     );
 
+    //if previous chat for user
     if (previousChat) {
       previousChat.messages.push(newMsg);
       await user.save();
+      newMsg._id = previousChat.messages.slice(-1)[0]._id;
     }
-    //
+    // new chat for user
     else {
       const newChat = { messagesWith: msgSendToUserId, messages: [newMsg] };
       user.chats.unshift(newChat);
       await user.save();
+
+      const previousChat = user.chats.find(
+        (chat) => chat.messagesWith.toString() === msgSendToUserId
+      );
+
+      newMsg._id = previousChat.messages.slice(-1)[0]._id;
     }
 
     const previousChatForReceiver = msgSendToUser.chats.find(
@@ -59,7 +67,7 @@ const sendMessage = async (userId, msgSendToUserId, msg) => {
       previousChatForReceiver.messages.push(newMsg);
       await msgSendToUser.save();
     }
-    //
+    // new message to new chat
     else {
       const newChat = { messagesWith: userId, messages: [newMsg] };
       msgSendToUser.chats.unshift(newChat);

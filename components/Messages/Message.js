@@ -10,19 +10,19 @@ function Message({
 }) {
   const [deleteIcon, showDeleteIcon] = useState(false);
 
-  const ifYouSender = message.sender === user._id;
+  const isSender = message.sender === user._id;
 
   return (
     <div className="bubbleWrapper" ref={MessageDivRef}>
       <div
-        className={ifYouSender ? 'inlineContainer own' : 'inlineContainer'}
-        onClick={() => ifYouSender && showDeleteIcon(!deleteIcon)}
+        className={isSender ? 'inlineContainer own' : 'inlineContainer'}
+        onClick={() => isSender && showDeleteIcon(!deleteIcon)}
       >
         <img
           className="inlineIcon"
-          src={ifYouSender ? user.profilePicUrl : bannerProfilePic}
+          src={isSender ? user.profilePicUrl : bannerProfilePic}
         />
-        <div className={ifYouSender ? 'ownBubble own' : 'otherBubble other'}>
+        <div className={isSender ? 'ownBubble own' : 'otherBubble other'}>
           {message.msg}
         </div>
         {deleteIcon && (
@@ -40,7 +40,7 @@ function Message({
           />
         )}
       </div>
-      <span className={ifYouSender ? 'own' : 'other'}>
+      <span className={isSender ? 'own' : 'other'}>
         {calculateTime(message.date)}
       </span>
     </div>
