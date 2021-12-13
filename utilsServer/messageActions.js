@@ -85,7 +85,7 @@ const setMessageToUnread = async (userId) => {
     console.error(error);
   }
 };
-const deleteMessage = async (userId, messagesWith, messagesId) => {
+const deleteMessage = async (userId, messagesWith, messageId) => {
   try {
     const user = await ChatModel.findOne({ user: userId });
 
@@ -97,7 +97,7 @@ const deleteMessage = async (userId, messagesWith, messagesId) => {
       return;
     }
     const messagetoDelete = chat.messages.find(
-      (message) => message._id.toString() === messagesId
+      (message) => message._id.toString() === messageId
     );
 
     if (!messagetoDelete) {

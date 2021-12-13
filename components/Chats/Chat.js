@@ -51,13 +51,14 @@ function Chat({ chat, connectedUsers, deleteChat }) {
           </Comment.Text>
         </div>
 
-        {/* <div className={styles.deleteIcon}>
+        <div className={styles.deleteIcon}>
+          <span>Delete</span>
           <Icon
             name="trash alternate"
             color="red"
             onClick={() => deleteChat(chat.messagesWith)}
           />
-        </div> */}
+        </div>
       </div>
     </>
   );

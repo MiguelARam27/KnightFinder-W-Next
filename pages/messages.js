@@ -234,7 +234,7 @@ function Messages({ chatsData, user }) {
               <ChatListSearch chats={chats} setChats={setChats} />
             </div>
 
-            <div className="segment">
+            <div className={styles.chatContainer}>
               {chats.map((chat, index) => {
                 return (
                   <Chat
@@ -256,7 +256,10 @@ function Messages({ chatsData, user }) {
                     {messages.length > 0 && (
                       <>
                         <div className={styles.banner}>
-                          <Banner bannerData={bannerData} />
+                          <Banner
+                            bannerData={bannerData}
+                            deleteChat={deleteChat}
+                          />
                         </div>
                         <div className={styles.messagesContainer}>
                           {messages.map((message, index) => (

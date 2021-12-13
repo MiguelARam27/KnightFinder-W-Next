@@ -6,30 +6,28 @@ function MessageInputField({ sendMessage }) {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div style={{ position: 'sticky', bottom: '0' }}>
-      <Segment secondary color="teal" attached="bottom">
-        <Form
-          reply
-          onSubmit={(e) => {
-            e.preventDefault();
-            sendMessage(text);
-            setText('');
+    <div>
+      <Form
+        reply
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendMessage(text);
+          setText('');
+        }}
+      >
+        <Form.Input
+          size="large"
+          placeholder="Send New Message"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          action={{
+            color: 'blue',
+            icon: 'telegram plane',
+            disabled: text === '',
+            loading: loading,
           }}
-        >
-          <Form.Input
-            size="large"
-            placeholder="Send New Message"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            action={{
-              color: 'blue',
-              icon: 'telegram plane',
-              disabled: text === '',
-              loading: loading,
-            }}
-          />
-        </Form>
-      </Segment>
+        />
+      </Form>
     </div>
   );
 }
