@@ -8,7 +8,6 @@ function Chat({ chat, connectedUsers, deleteChat }) {
 
   const { message } = router.query;
 
-  console.log(message);
   const isOnline =
     connectedUsers.length > 0 &&
     connectedUsers.filter((user) => user.userId === chat.messagesWith).length >
