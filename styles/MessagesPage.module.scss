@@ -179,6 +179,11 @@
           padding: 0;
           width: 100%;
           padding: 0.25em 0;
+          @include respond(tab-land) {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
 
           span {
             font-weight: Bold;
