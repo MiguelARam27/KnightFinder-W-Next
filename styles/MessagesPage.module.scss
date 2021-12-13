@@ -1,11 +1,13 @@
 .top {
   padding: 1rem 2.5rem;
   background-color: $color-bg-dark;
-  color: white;
+  color: whitesmoke;
   border-bottom: 1px solid $color-main;
   height: 5vh;
   display: flex;
   align-items: center;
+  cursor: pointer;
+
   .header {
     color: white !important;
   }
@@ -28,7 +30,8 @@
   .leftContainer {
     width: 25%;
     border-right: 1px solid $color-main;
-    background-color: $color-bg-dark;
+    background-color: white;
+    padding: 0 1em;
     overflow: auto;
     min-height: 100%;
     padding-top: 0.5rem;
@@ -45,43 +48,88 @@
       border-radius: 5px;
     }
 
+    .searchContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem 0.1rem;
+    }
+
+    .activeChat {
+      background-color: $color-bg-dark !important;
+      color: white !important;
+      border-right: 5px solid $color-main;
+    }
+
     .chat {
       width: 100%;
-      background-color: whitesmoke;
+      background-color: white;
+
       min-height: 2rem;
       overflow: hidden;
       display: flex;
       margin: 1.5em 0;
-      padding: 1.25em 0.5em;
+      padding: 2.15em 0.5em;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
+      position: relative;
+      border-radius: 0.5em;
       &:hover {
         cursor: pointer;
       }
 
       .avatar {
-        width: 35%;
+        width: 25%;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: yellow;
 
         img {
           width: 100%;
           border-radius: 50%;
-          height: 3.5em;
-          width: 3.5em;
+          height: 4.5em;
+          width: 4.5em;
         }
       }
 
       .info {
-        width: 65%;
-        background-color: green;
+        width: 75%;
+
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        padding-right: 0.5em;
+        justify-content: space-between;
 
-        .deleteIcon {
-          padding: 0.5em 0;
+        height: 4rem;
+
+        .user {
+          display: flex;
+          justify-content: space-between;
+
+          padding: 0;
+          width: 100%;
+          padding: 0.25em 0;
+
+          span {
+            font-weight: Bold;
+            text-transform: capitalize;
+            margin-right: 0.25em;
+            text-align: center;
+            font-size: 1.15em;
+          }
+        }
+      }
+
+      .deleteIcon {
+        position: absolute;
+        left: 5%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0.5em 0;
+
+        i {
+          font-size: 1.2rem !important;
         }
       }
     }

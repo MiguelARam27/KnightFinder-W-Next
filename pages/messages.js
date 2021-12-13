@@ -230,7 +230,10 @@ function Messages({ chatsData, user }) {
         <Divider hidden />
         <div className={styles.messagesWrapper}>
           <div className={styles.leftContainer}>
-            <ChatListSearch chats={chats} setChats={setChats} />
+            <div className={styles.searchContainer}>
+              <ChatListSearch chats={chats} setChats={setChats} />
+            </div>
+
             <div className="segment">
               {chats.map((chat, index) => {
                 return (
@@ -246,33 +249,39 @@ function Messages({ chatsData, user }) {
             </div>
           </div>
           <div className={styles.rightContainer}>
-            {router.query.message && (
+            {chats && chats?.length > 0 ? (
               <>
-                {messages.length > 0 && (
+                {router.query.message && (
                   <>
-                    <div className={styles.banner}>
-                      <Banner bannerData={bannerData} />
-                    </div>
-                    <div className={styles.messagesContainer}>
-                      {messages.map((message, index) => (
-                        <Message
-                          key={index}
-                          bannerProfilePic={bannerData.profilePicUrl}
-                          message={message}
-                          user={user}
-                          setMessages={setMessages}
-                          messagesWith={openChatId.current}
-                          MessageDivRef={MessageDivRef}
-                          deleteMessage={deleteMessage}
-                        />
-                      ))}
+                    {messages.length > 0 && (
+                      <>
+                        <div className={styles.banner}>
+                          <Banner bannerData={bannerData} />
+                        </div>
+                        <div className={styles.messagesContainer}>
+                          {messages.map((message, index) => (
+                            <Message
+                              key={index}
+                              bannerProfilePic={bannerData.profilePicUrl}
+                              message={message}
+                              user={user}
+                              setMessages={setMessages}
+                              messagesWith={openChatId.current}
+                              MessageDivRef={MessageDivRef}
+                              deleteMessage={deleteMessage}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                    <div className={styles.messageInputContainer}>
+                      <MessageInputField sendMessage={sendMessage} />
                     </div>
                   </>
                 )}
-                <div className={styles.messageInputContainer}>
-                  <MessageInputField sendMessage={sendMessage} />
-                </div>
               </>
+            ) : (
+              <NoMessages />
             )}
           </div>
         </div>
