@@ -3,6 +3,7 @@ import { Form, Button, Message, Segment } from 'semantic-ui-react';
 import baseUrl from '../../utils/baseUrl';
 import catchErrors from '../../utils/catchErrors';
 import axios from 'axios';
+import styles from '@/styles/ForgotPage.module.scss';
 function ResetPage() {
   const [email, setEmail] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
@@ -28,52 +29,41 @@ function ResetPage() {
 
   return (
     <>
-      {emailChecked ? (
-        <Message
-          attached
-          icon="mail"
-          header="Check your Inbox"
-          content="Please check your inbox for further instructions"
-          success
-        />
-      ) : (
-        <Message
-          attached
-          icon="settings"
-          header="Reset Password"
-          color="teal"
-        />
-      )}
-      <Form
-        loading={loading}
-        onSubmit={resetPassword}
-        error={errorMsg !== null}
-      >
-        <Message error header="Oops!" content={errorMsg} />
+      <div className={styles.container}>
+        <div className={styles.form}>
+          <div className={styles.label}>
+            <span>Enter your email to reset your password</span>
+          </div>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder="Enter email address"
+            />
+          </div>
 
-        <Segment>
-          <Form.Input
-            fluid
-            icon="mail outline"
-            type="email"
-            iconPosition="left"
-            label="Email"
-            placeholder="Enter email address"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            required
-          />
+          <div className={styles.buttonContainer}>
+            <button onClick={resetPassword} className={styles.button}>
+              Submit
+            </button>
+          </div>
 
-          <Button
-            disabled={loading || email.length === 0}
-            icon="configure"
-            type="submit"
-            color="orange"
-            content="Submit"
-          />
-        </Segment>
-      </Form>
+          <div>
+            {emailChecked && (
+              <Message
+                attached
+                icon="mail"
+                header="Check your Inbox"
+                content="Please check your inbox for further instructions"
+                success
+              />
+            )}
+            {errorMsg && <Message error header="Oops!" content={errorMsg} />}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

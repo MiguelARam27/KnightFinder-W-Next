@@ -98,7 +98,7 @@ function Login() {
           )}
 
           <div className={styles.buttonContainer}>
-            <Link href={'/forgot'}>
+            <Link href={'/reset'}>
               <span className={styles.button1}>forgot password</span>
             </Link>
             <Link href={'/signup'}>

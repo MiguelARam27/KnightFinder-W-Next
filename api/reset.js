@@ -64,6 +64,8 @@ router.post('/token', async (req, res) => {
   try {
     const { token, password } = req.body;
 
+    console.log(token, password);
+
     if (!token) {
       return res.status(401).send('Unauthorized');
     }
@@ -74,7 +76,7 @@ router.post('/token', async (req, res) => {
     const user = await UserModel.findOne({ resetToken: token });
 
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.status(404).send('Token not valid');
     }
 
     if (Date.now() > user.expireToken) {

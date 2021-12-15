@@ -4,6 +4,7 @@ import baseUrl from '../../utils/baseUrl';
 import catchErrors from '../../utils/catchErrors';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import styles from '@/styles/ForgotPage.module.scss';
 function TokenPage() {
   const router = useRouter();
 
@@ -15,6 +16,7 @@ function TokenPage() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [success, setSuccess] = useState(false);
 
+  console.log(errorMsg);
   const handleChange = (e) => {
     setNewPassword({ ...newPassword, [e.target.name]: e.target.value });
   };
@@ -42,8 +44,56 @@ function TokenPage() {
   };
 
   return (
-    <>
-      {success ? (
+    <div className={styles.container}>
+      {!success && (
+        <div className={styles.form}>
+          <div className={styles.label}>
+            <span>Enter your new password and confirm it</span>
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="field1" style={{ color: 'white' }}>
+              New Password
+            </label>
+            <input
+              placeholder="Enter New Password"
+              name="field1"
+              onChange={handleChange}
+              value={field1}
+              type="password"
+              autoComplete="off"
+            />
+          </div>
+
+          <div className={styles.inputContainer}>
+            <label htmlFor="field2" style={{ color: 'white' }}>
+              Confirm New Password
+            </label>
+            <input
+              placeholder="Confirm New Password"
+              name="field2"
+              onChange={handleChange}
+              value={field2}
+              type="password"
+              autoComplete="off"
+            />
+          </div>
+
+          <Divider hidden />
+          <div className={styles.buttonContainer}>
+            <button onClick={resetPassword} className={styles.button}>
+              Submit
+            </button>
+          </div>
+
+          {errorMsg && (
+            <div className={styles.label}>
+              <span>{errorMsg}</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {success && (
         <Message
           attached
           success
@@ -54,62 +104,8 @@ function TokenPage() {
           style={{ cursor: 'pointer' }}
           onClick={() => router.push('/login')}
         />
-      ) : (
-        <Message
-          attached
-          icon="settings"
-          header="Reset Password"
-          color="teal"
-        />
       )}
-
-      {!success && (
-        <Form
-          loading={loading}
-          onSubmit={resetPassword}
-          error={errorMsg !== null}
-        >
-          <Message error header="Oops!" content={errorMsg} />
-
-          <Segment>
-            <Form.Input
-              fluid
-              icon="eye"
-              type="password"
-              iconPosition="left"
-              label="New Password"
-              placeholder="Enter new Password"
-              name="field1"
-              onChange={handleChange}
-              value={field1}
-              required
-            />
-            <Form.Input
-              fluid
-              icon="eye"
-              type="password"
-              iconPosition="left"
-              label="Confirm Password"
-              placeholder="Confirm new Password"
-              name="field2"
-              onChange={handleChange}
-              value={field2}
-              required
-            />
-
-            <Divider hidden />
-
-            <Button
-              disabled={field1 === '' || field2 === '' || loading}
-              icon="configure"
-              type="submit"
-              color="orange"
-              content="Reset"
-            />
-          </Segment>
-        </Form>
-      )}
-    </>
+    </div>
   );
 }
 
