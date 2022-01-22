@@ -12,11 +12,12 @@ import {
   IconButton,
 } from '@mui/material';
 import { useState } from 'react';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+
 import styles from '@/styles/LandingNav.module.scss';
 import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
+import CloseIcon from '@mui/icons-material/Close';
 export default function MobileNav() {
   const [drawerToggle, setDrawerToggle] = useState(false);
   const handleDrawerToggle = () => {
@@ -74,12 +75,26 @@ export default function MobileNav() {
         >
           <List
             sx={{
-              width: '30vw',
+              width: '80vw',
               bgcolor: 'common.black',
               height: '100%',
               overFlow: 'hidden',
             }}
           >
+            <ListItem>
+              <span
+                style={{
+                  color: 'white',
+                  padding: '1rem .5rem',
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  handleDrawerToggle();
+                }}
+              >
+                <CloseIcon />
+              </span>
+            </ListItem>
             <ListItem>
               <ListItemText>
                 <Link href={'/login'}>
