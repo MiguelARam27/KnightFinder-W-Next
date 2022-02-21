@@ -17,6 +17,36 @@
   }
   .content {
     width: 100%;
+    .wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatarImage {
+      vertical-align: middle;
+      width: 4em;
+      height: 4em;
+      border-radius: 50%;
+      display: inline-block;
+      object-fit: cover;
+      @include respond(tab-land) {
+        margin-right: 1rem;
+      }
+      // background-color: red;
+    }
+
+    .meta {
+      padding: 0.5rem 0;
+      align-self: stretch;
+      font-size: 1em;
+      color: rgba(0, 0, 0, 0.4);
+    }
+    .link {
+      color: $color-main;
+      font-size: 1.5em;
+      padding: 1.5rem 0;
+      // background-color: red;
+    }
     .postWrapper {
       width: 100%;
 

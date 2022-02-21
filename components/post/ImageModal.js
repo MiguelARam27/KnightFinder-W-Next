@@ -35,50 +35,55 @@ const ImageModal = ({
         <div className={styles.content}>
           <div className="card ui fluid">
             <div className="content">
-              <img
-                src={post.user.profilePicUrl}
-                alt=""
-                className="ui avatar left floated image"
-              />
-              {(user.role === 'root' || post.user._id === user._id) && (
-                <>
-                  <Popup
-                    on="click"
-                    position="top right"
-                    trigger={
-                      <Image
-                        src="/deleteIcon.svg"
-                        style={{ cursor: 'pointer' }}
-                        size="mini"
-                        floated="right"
-                      />
-                    }
-                  >
-                    <Header as="h4" content="Are you sure" />
-                    <p>This action is irreversible</p>
-                    <Button
-                      color="red"
-                      icon="trash"
-                      content="delete"
-                      onClick={() =>
-                        deletePost(post._id, setPosts, setShowToastr)
-                      }
-                    />
-                  </Popup>
-                </>
-              )}
+              <div className={styles.wrapper}>
+                <img
+                  src={post.user.profilePicUrl}
+                  alt=""
+                  className={styles.avatarImage}
+                />
 
-              <div className="header">
-                <Link href={`/${post.user.username}`}>
-                  <a className={styles.link}>{post.user.name}</a>
-                </Link>
+                <div className="header">
+                  <Link href={`/${post.user.username}`}>
+                    <a className={styles.link}>{post.user.name}</a>
+                  </Link>
+                  <div className={styles.meta}>
+                    <time>{calculateTime(post.createdAt)}</time>
+                    {post.location && (
+                      <div className="meta">{post.location}</div>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="meta">
-                <time>{calculateTime(post.createdAt)}</time>
-              </div>
-              {post.location && <div className="meta">{post.location}</div>}
+
               <div className={styles.postWrapper}>
-                <span>{post.text}</span>
+                {(user.role === 'root' || post.user._id === user._id) && (
+                  <>
+                    <Popup
+                      on="click"
+                      position="top right"
+                      trigger={
+                        <Image
+                          src="/deleteIcon.svg"
+                          style={{ cursor: 'pointer' }}
+                          size="mini"
+                          floated="right"
+                        />
+                      }
+                    >
+                      <Header as="h4" content="Are you sure" />
+                      <p>This action is irreversible</p>
+                      <Button
+                        color="red"
+                        icon="trash"
+                        content="delete"
+                        onClick={() =>
+                          deletePost(post._id, setPosts, setShowToastr)
+                        }
+                      />
+                    </Popup>
+                  </>
+                )}
+                <span>{post.text} </span>
               </div>
             </div>
             <div className="content">
