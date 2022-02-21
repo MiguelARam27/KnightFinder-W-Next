@@ -7,7 +7,7 @@
     height: 25rem;
 
     @include respond(tab-land) {
-      height: 18rem;
+      max-height: 25rem;
     }
     &:hover {
       cursor: pointer;
